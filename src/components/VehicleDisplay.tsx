@@ -8,41 +8,16 @@ const vehicleViews = ["Front 3/4", "Side Profile", "Rear 3/4", "Interior", "Deta
 
 function CarSilhouette({ color }: { color: string }) {
   return (
-    <svg
-      viewBox="0 0 900 400"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{ width: "100%", height: "100%", maxHeight: "340px" }}
-    >
+    <svg viewBox="0 0 900 400" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", maxHeight: "340px" }}>
       <ellipse cx="450" cy="375" rx="320" ry="14" fill="rgba(0,0,0,0.07)" />
-      <path
-        d="M120 300 L120 240 C120 240 180 180 230 160 L340 130 C370 123 400 120 430 120 L520 120 C560 120 590 130 620 145 L720 195 C750 210 780 230 800 255 L810 275 L810 300 Z"
-        fill={color}
-        stroke="#C8C8C8"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M310 120 C330 95 360 78 395 72 L510 72 C545 72 570 82 595 100 L640 130 L300 130 Z"
-        fill={color}
-        stroke="#C8C8C8"
-        strokeWidth="1.5"
-      />
-      <path
-        d="M315 128 C332 104 358 86 390 80 L500 80 C528 80 548 90 568 104 L608 128 Z"
-        fill="rgba(180,210,240,0.35)"
-        stroke="#B0C8D8"
-        strokeWidth="1"
-      />
-      <path
-        d="M608 128 L640 128 L635 108 C622 90 608 80 590 78 L568 104 Z"
-        fill="rgba(180,210,240,0.3)"
-        stroke="#B0C8D8"
-        strokeWidth="1"
-      />
-      <path d="M420 128 L416 295" stroke="#B0B0B0" strokeWidth="1" />
-      <path d="M580 128 L577 295" stroke="#B0B0B0" strokeWidth="1" />
-      <rect x="440" y="215" width="28" height="5" rx="2.5" fill="#A0A0A0" />
-      <rect x="598" y="215" width="28" height="5" rx="2.5" fill="#A0A0A0" />
+      <path d="M120 300 L120 240 C120 240 180 180 230 160 L340 130 C370 123 400 120 430 120 L520 120 C560 120 590 130 620 145 L720 195 C750 210 780 230 800 255 L810 275 L810 300 Z" fill={color} stroke="var(--border)" strokeWidth="1.5" />
+      <path d="M310 120 C330 95 360 78 395 72 L510 72 C545 72 570 82 595 100 L640 130 L300 130 Z" fill={color} stroke="var(--border)" strokeWidth="1.5" />
+      <path d="M315 128 C332 104 358 86 390 80 L500 80 C528 80 548 90 568 104 L608 128 Z" fill="rgba(180,210,240,0.35)" stroke="#B0C8D8" strokeWidth="1" />
+      <path d="M608 128 L640 128 L635 108 C622 90 608 80 590 78 L568 104 Z" fill="rgba(180,210,240,0.3)" stroke="#B0C8D8" strokeWidth="1" />
+      <path d="M420 128 L416 295" stroke="var(--border)" strokeWidth="1" />
+      <path d="M580 128 L577 295" stroke="var(--border)" strokeWidth="1" />
+      <rect x="440" y="215" width="28" height="5" rx="2.5" fill="var(--text-muted)" />
+      <rect x="598" y="215" width="28" height="5" rx="2.5" fill="var(--text-muted)" />
       <path d="M125 255 C138 245 155 238 172 238 L190 238 L185 268 L120 268 Z" fill="rgba(240,245,255,0.9)" stroke="#C0C8D0" strokeWidth="1" />
       <path d="M130 255 L182 255" stroke="#E8F0FF" strokeWidth="2" strokeLinecap="round" />
       <path d="M800 252 L805 252 L810 268 L798 268 Z" fill="rgba(255,80,60,0.7)" stroke="#C04040" strokeWidth="1" />
@@ -62,8 +37,8 @@ function CarSilhouette({ color }: { color: string }) {
         <line key={deg} x1={680 + 18 * Math.cos((deg * Math.PI) / 180)} y1={310 + 18 * Math.sin((deg * Math.PI) / 180)} x2={680 + 36 * Math.cos((deg * Math.PI) / 180)} y2={310 + 36 * Math.sin((deg * Math.PI) / 180)} stroke="#B0B0B0" strokeWidth="3" strokeLinecap="round" />
       ))}
       <circle cx="680" cy="310" r="5" fill="#888" />
-      <line x1="100" y1="362" x2="830" y2="362" stroke="#E5E5E5" strokeWidth="1" />
-      <path d="M280 300 L620 300 L620 310 L280 310 Z" fill="#888888" />
+      <line x1="100" y1="362" x2="830" y2="362" stroke="var(--border)" strokeWidth="1" />
+      <path d="M280 300 L620 300 L620 310 L280 310 Z" fill="var(--text-secondary)" />
     </svg>
   );
 }
@@ -88,15 +63,12 @@ export default function VehicleDisplay({ activeEngine, vehicleColor }: VehicleDi
         width: isMobile ? "100%" : "55%",
         position: "relative",
         padding: isMobile ? "0 0 8px" : "0",
-        background: isMobile ? "#FAFAFA" : "transparent",
-        borderBottom: isMobile ? "1px solid #F0F0F0" : "none",
+        background: isMobile ? "var(--bg-vehicle-mobile)" : "transparent",
+        borderBottom: isMobile ? "1px solid var(--border-divider)" : "none",
+        transition: "background 0.3s ease, border-color 0.3s ease",
       }}
     >
-      {/* Vehicle image */}
-      <div
-        className="relative w-full flex items-center justify-center"
-        style={{ height: isMobile ? "240px" : "420px" }}
-      >
+      <div className="relative w-full flex items-center justify-center" style={{ height: isMobile ? "240px" : "420px" }}>
         <AnimatePresence mode="wait">
           <motion.div
             key={`${activeEngine}-${currentView}`}
@@ -113,45 +85,37 @@ export default function VehicleDisplay({ activeEngine, vehicleColor }: VehicleDi
       </div>
 
       {/* Slider controls */}
-      <div
-        className="flex items-center"
-        style={{ gap: isMobile ? "12px" : "24px", marginTop: isMobile ? "4px" : "8px", padding: isMobile ? "0 20px" : "0" }}
-      >
+      <div className="flex items-center" style={{ gap: isMobile ? "12px" : "24px", marginTop: isMobile ? "4px" : "8px", padding: isMobile ? "0 20px" : "0" }}>
         <div className="flex items-center gap-2">
-          <div
-            className="relative overflow-hidden"
-            style={{ width: isMobile ? "80px" : "120px", height: "1px", background: "#E5E5E5" }}
-          >
+          <div className="relative overflow-hidden" style={{ width: isMobile ? "80px" : "120px", height: "1px", background: "var(--border)", transition: "background 0.3s ease" }}>
             <motion.div
-              className="absolute left-0 top-0 h-full bg-black"
+              className="absolute left-0 top-0 h-full"
+              style={{ background: "var(--text-primary)" }}
               animate={{ width: `${((currentView + 1) / totalViews) * 100}%` }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
-          <span style={{ fontSize: "11px", color: "#A0A0A0", fontWeight: 500, whiteSpace: "nowrap" }}>
+          <span style={{ fontSize: "11px", color: "var(--text-muted)", fontWeight: 500, whiteSpace: "nowrap", transition: "color 0.3s ease" }}>
             {currentView + 1} / {totalViews}
           </span>
         </div>
 
         <div className="flex items-center gap-2">
-          <button
-            onClick={() => setCurrentView((v) => (v - 1 + totalViews) % totalViews)}
-            className="flex items-center justify-center transition-all duration-200 hover:bg-gray-100"
-            style={{ width: "32px", height: "32px", border: "1px solid #E5E5E5", background: "white", cursor: "pointer" }}
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M9 11L5 7L9 3" stroke="#111111" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-          <button
-            onClick={() => setCurrentView((v) => (v + 1) % totalViews)}
-            className="flex items-center justify-center transition-all duration-200 hover:bg-gray-100"
-            style={{ width: "32px", height: "32px", border: "1px solid #E5E5E5", background: "white", cursor: "pointer" }}
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M5 11L9 7L5 3" stroke="#111111" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
+          {[
+            { dir: "prev", path: "M9 11L5 7L9 3" },
+            { dir: "next", path: "M5 11L9 7L5 3" },
+          ].map(({ dir, path }) => (
+            <button
+              key={dir}
+              onClick={() => setCurrentView((v) => dir === "prev" ? (v - 1 + totalViews) % totalViews : (v + 1) % totalViews)}
+              className="flex items-center justify-center"
+              style={{ width: "32px", height: "32px", border: "1px solid var(--border)", background: "var(--bg)", cursor: "pointer", transition: "background 0.2s ease, border-color 0.3s ease" }}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d={path} stroke="var(--text-primary)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          ))}
         </div>
 
         <AnimatePresence mode="wait">
@@ -161,7 +125,7 @@ export default function VehicleDisplay({ activeEngine, vehicleColor }: VehicleDi
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.2 }}
-            style={{ fontSize: "11px", color: "#A0A0A0", letterSpacing: "0.08em", textTransform: "uppercase" }}
+            style={{ fontSize: "11px", color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase", transition: "color 0.3s ease" }}
           >
             {vehicleViews[currentView]}
           </motion.span>

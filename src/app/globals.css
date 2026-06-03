@@ -1,35 +1,63 @@
 @import "tailwindcss";
 
 :root {
-  --white: #FFFFFF;
+  --bg: #FFFFFF;
   --bg-soft: #F5F5F5;
   --bg-panel: #F7F7F7;
+  --bg-card-active: #FFFFFF;
+  --bg-card-inactive: #F8F8F8;
+  --bg-vehicle-mobile: #FAFAFA;
   --border: #E5E5E5;
-  --border-strong: #D0D0D0;
+  --border-header: #F1F1F1;
+  --border-divider: #F0F0F0;
   --text-primary: #111111;
   --text-secondary: #6B6B6B;
   --text-muted: #A0A0A0;
-  --black: #000000;
-  --hover: #1A1A1A;
-  --accent: #D8D8D8;
+  --shadow-sm: rgba(0, 0, 0, 0.08);
+  --shadow-md: rgba(0, 0, 0, 0.12);
+  --sidebar-active-bg: #FFFFFF;
+  --accent-line: #000000;
 }
 
-* {
+.dark {
+  --bg: #0C0C0C;
+  --bg-soft: #141414;
+  --bg-panel: #141414;
+  --bg-card-active: #1C1C1C;
+  --bg-card-inactive: #111111;
+  --bg-vehicle-mobile: #111111;
+  --border: #272727;
+  --border-header: #181818;
+  --border-divider: #1A1A1A;
+  --text-primary: #EBEBEB;
+  --text-secondary: #888888;
+  --text-muted: #4A4A4A;
+  --shadow-sm: rgba(0, 0, 0, 0.5);
+  --shadow-md: rgba(0, 0, 0, 0.6);
+  --sidebar-active-bg: #1C1C1C;
+  --accent-line: #FFFFFF;
+}
+
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
 html,
 body {
   height: 100%;
-  background: var(--white);
+  background: var(--bg);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  transition: background-color 0.3s ease;
+}
+
 ::selection {
-  background: #111111;
-  color: #ffffff;
+  background: var(--text-primary);
+  color: var(--bg);
 }
 
 ::-webkit-scrollbar {

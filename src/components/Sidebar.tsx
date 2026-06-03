@@ -7,7 +7,7 @@ const categories = [
   {
     id: "engine",
     label: "Engine",
-    icon: (active: boolean, size: number) => (
+    icon: (size: number) => (
       <svg width={size} height={size} viewBox="0 0 28 28" fill="none">
         <rect x="4" y="10" width="20" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
         <path d="M8 10V7M14 10V6M20 10V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -19,7 +19,7 @@ const categories = [
   {
     id: "exterior",
     label: "Exterior",
-    icon: (active: boolean, size: number) => (
+    icon: (size: number) => (
       <svg width={size} height={size} viewBox="0 0 28 28" fill="none">
         <path d="M3 18L7 12L11 9H17L21 12L25 18" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
         <path d="M2 18H26V20C26 20.5523 25.5523 21 25 21H3C2.44772 21 2 20.5523 2 20V18Z" stroke="currentColor" strokeWidth="1.5" />
@@ -32,7 +32,7 @@ const categories = [
   {
     id: "wheels",
     label: "Wheels",
-    icon: (active: boolean, size: number) => (
+    icon: (size: number) => (
       <svg width={size} height={size} viewBox="0 0 28 28" fill="none">
         <circle cx="14" cy="14" r="10" stroke="currentColor" strokeWidth="1.5" />
         <circle cx="14" cy="14" r="3.5" stroke="currentColor" strokeWidth="1.5" />
@@ -44,7 +44,7 @@ const categories = [
   {
     id: "interior",
     label: "Interior",
-    icon: (active: boolean, size: number) => (
+    icon: (size: number) => (
       <svg width={size} height={size} viewBox="0 0 28 28" fill="none">
         <path d="M5 20V11C5 9.89543 5.89543 9 7 9H21C22.1046 9 23 9.89543 23 11V20" stroke="currentColor" strokeWidth="1.5" />
         <path d="M3 20H25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -57,7 +57,7 @@ const categories = [
   {
     id: "packages",
     label: "Packages",
-    icon: (active: boolean, size: number) => (
+    icon: (size: number) => (
       <svg width={size} height={size} viewBox="0 0 28 28" fill="none">
         <path d="M14 3L25 8.5V19.5L14 25L3 19.5V8.5L14 3Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
         <path d="M14 3V25" stroke="currentColor" strokeWidth="1.5" />
@@ -81,13 +81,7 @@ export default function Sidebar({ activeCategory, onCategoryChange }: SidebarPro
     return (
       <div
         className="flex overflow-x-auto"
-        style={{
-          gap: "8px",
-          padding: "12px 20px 12px",
-          borderBottom: "1px solid #F0F0F0",
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-        }}
+        style={{ gap: "8px", padding: "12px 20px", borderBottom: "1px solid var(--border-divider)", scrollbarWidth: "none", transition: "border-color 0.3s ease" }}
       >
         {categories.map((cat) => {
           const isActive = activeCategory === cat.id;
@@ -99,23 +93,15 @@ export default function Sidebar({ activeCategory, onCategoryChange }: SidebarPro
               className="flex flex-col items-center gap-1 cursor-pointer shrink-0"
               style={{
                 padding: "10px 14px",
-                background: isActive ? "#111111" : "#F5F5F5",
+                background: isActive ? "var(--text-primary)" : "var(--bg-soft)",
                 border: "none",
-                transition: "all 0.2s cubic-bezier(0.22,1,0.36,1)",
+                transition: "background 0.25s ease",
               }}
             >
-              <div style={{ color: isActive ? "#FFFFFF" : "#6B6B6B" }}>
-                {cat.icon(isActive, 22)}
+              <div style={{ color: isActive ? "var(--bg)" : "var(--text-secondary)", transition: "color 0.25s ease" }}>
+                {cat.icon(22)}
               </div>
-              <span
-                style={{
-                  fontSize: "8px",
-                  fontWeight: 600,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  color: isActive ? "#FFFFFF" : "#6B6B6B",
-                }}
-              >
+              <span style={{ fontSize: "8px", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: isActive ? "var(--bg)" : "var(--text-secondary)", transition: "color 0.25s ease" }}>
                 {cat.label}
               </span>
             </motion.button>
@@ -143,42 +129,29 @@ export default function Sidebar({ activeCategory, onCategoryChange }: SidebarPro
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0.15 + i * 0.07 }}
             onClick={() => onCategoryChange(cat.id)}
-            className="relative flex flex-col items-center justify-center gap-2 cursor-pointer group"
+            className="relative flex flex-col items-center justify-center gap-2 cursor-pointer"
             style={{
               width: "72px",
               height: "72px",
-              background: isActive ? "#FFFFFF" : "transparent",
-              border: isActive ? "1px solid #E5E5E5" : "1px solid transparent",
-              boxShadow: isActive ? "0 2px 12px rgba(0,0,0,0.08)" : "none",
+              background: isActive ? "var(--sidebar-active-bg)" : "transparent",
+              border: isActive ? "1px solid var(--border)" : "1px solid transparent",
+              boxShadow: isActive ? `0 2px 12px var(--shadow-sm)` : "none",
               transition: "all 0.25s cubic-bezier(0.22,1,0.36,1)",
             }}
-            whileHover={{ y: -2, boxShadow: "0 4px 20px rgba(0,0,0,0.1)" }}
+            whileHover={{ y: -2, boxShadow: `0 4px 20px var(--shadow-md)` }}
           >
             {isActive && (
               <motion.div
                 layoutId="sidebar-accent"
-                className="absolute left-0 top-2 bottom-2 w-0.5 bg-black"
+                className="absolute left-0 top-2 bottom-2 w-0.5"
+                style={{ background: "var(--accent-line)" }}
                 transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               />
             )}
-            <div
-              style={{
-                color: isActive ? "#111111" : "#A0A0A0",
-                transition: "color 0.25s ease",
-              }}
-            >
-              {cat.icon(isActive, 28)}
+            <div style={{ color: isActive ? "var(--text-primary)" : "var(--text-muted)", transition: "color 0.25s ease" }}>
+              {cat.icon(28)}
             </div>
-            <span
-              style={{
-                fontSize: "9px",
-                fontWeight: 500,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                color: isActive ? "#111111" : "#A0A0A0",
-                transition: "color 0.25s ease",
-              }}
-            >
+            <span style={{ fontSize: "9px", fontWeight: 500, letterSpacing: "0.08em", textTransform: "uppercase", color: isActive ? "var(--text-primary)" : "var(--text-muted)", transition: "color 0.25s ease" }}>
               {cat.label}
             </span>
           </motion.button>

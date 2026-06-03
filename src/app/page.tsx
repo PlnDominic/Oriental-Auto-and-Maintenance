@@ -40,7 +40,7 @@ export default function ConfiguratorPage() {
   /* ── Mobile layout: scrollable vertical stack ── */
   if (isMobile) {
     return (
-      <div style={{ minHeight: "100vh", background: "#FFFFFF", display: "flex", flexDirection: "column" }}>
+      <div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", flexDirection: "column", transition: "background 0.3s ease" }}>
         <Header price={currentEngine.price} />
 
         {/* Scrollable body below fixed header */}
@@ -83,10 +83,11 @@ export default function ConfiguratorPage() {
     <div
       style={{
         height: "100vh",
-        background: "#FFFFFF",
+        background: "var(--bg)",
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
+        transition: "background 0.3s ease",
       }}
     >
       <Header price={currentEngine.price} />
@@ -116,7 +117,7 @@ export default function ConfiguratorPage() {
             style={{
               width: "1px",
               height: "60%",
-              background: "#F0F0F0",
+              background: "var(--border-divider)",
               margin: "0 32px",
               flexShrink: 0,
             }}
