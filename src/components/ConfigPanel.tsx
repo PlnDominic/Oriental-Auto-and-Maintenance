@@ -17,13 +17,14 @@ interface ConfigPanelProps {
   engines: EngineOption[];
   activeEngine: string;
   onEngineChange: (id: string) => void;
+  onChooseColours: () => void;
 }
 
 function formatPrice(price: number) {
   return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0 }).format(price);
 }
 
-export default function ConfigPanel({ engines, activeEngine, onEngineChange }: ConfigPanelProps) {
+export default function ConfigPanel({ engines, activeEngine, onEngineChange, onChooseColours }: ConfigPanelProps) {
   const isMobile = useIsMobile();
 
   return (
@@ -115,6 +116,7 @@ export default function ConfigPanel({ engines, activeEngine, onEngineChange }: C
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0.35 + engines.length * 0.08 }}
           whileHover={{ scale: 1.02, background: "#1A1A1A" }}
           whileTap={{ scale: 0.98 }}
+          onClick={onChooseColours}
           className="flex flex-col items-start justify-between shrink-0 cursor-pointer"
           style={{ width: isMobile ? "120px" : "160px", minHeight: isMobile ? "110px" : "120px", padding: isMobile ? "14px 16px" : "18px 20px", background: "#111111", border: "none", transition: "background 0.2s ease" }}
         >
