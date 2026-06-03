@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const actionLinks = [
   { label: "Save Configuration", href: "#" },
@@ -15,13 +16,21 @@ interface VehicleInfoProps {
 }
 
 export default function VehicleInfo({ vehicleName, variant, year }: VehicleInfoProps) {
+  const isMobile = useIsMobile();
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: isMobile ? 16 : 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
       className="flex flex-col justify-center"
-      style={{ width: "35%", minWidth: "320px", paddingRight: "48px" }}
+      style={{
+        width: isMobile ? "100%" : "35%",
+        minWidth: isMobile ? "auto" : "320px",
+        padding: isMobile ? "24px 20px 28px" : "0",
+        paddingRight: isMobile ? "20px" : "48px",
+        borderBottom: isMobile ? "1px solid #F0F0F0" : "none",
+      }}
     >
       {/* Label */}
       <motion.span
@@ -34,7 +43,7 @@ export default function VehicleInfo({ vehicleName, variant, year }: VehicleInfoP
           letterSpacing: "0.12em",
           textTransform: "uppercase",
           color: "#A0A0A0",
-          marginBottom: "16px",
+          marginBottom: isMobile ? "10px" : "16px",
         }}
       >
         Your Configuration
@@ -49,12 +58,12 @@ export default function VehicleInfo({ vehicleName, variant, year }: VehicleInfoP
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            fontSize: "clamp(40px, 4.5vw, 64px)",
+            fontSize: isMobile ? "36px" : "clamp(40px, 4.5vw, 64px)",
             fontWeight: 700,
             color: "#111111",
             letterSpacing: "-0.025em",
             lineHeight: 1,
-            marginBottom: "12px",
+            marginBottom: "10px",
           }}
         >
           {vehicleName}
@@ -71,11 +80,11 @@ export default function VehicleInfo({ vehicleName, variant, year }: VehicleInfoP
           exit={{ opacity: 0, y: -6 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
           style={{
-            fontSize: "16px",
+            fontSize: isMobile ? "13px" : "16px",
             fontWeight: 400,
             color: "#6B6B6B",
             letterSpacing: "0.04em",
-            marginBottom: "48px",
+            marginBottom: isMobile ? "20px" : "48px",
           }}
         >
           {variant}
@@ -83,10 +92,17 @@ export default function VehicleInfo({ vehicleName, variant, year }: VehicleInfoP
       </AnimatePresence>
 
       {/* Divider */}
-      <div style={{ width: "40px", height: "1px", background: "#E5E5E5", marginBottom: "40px" }} />
+      <div
+        style={{
+          width: "40px",
+          height: "1px",
+          background: "#E5E5E5",
+          marginBottom: isMobile ? "20px" : "40px",
+        }}
+      />
 
       {/* Action links */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col" style={{ gap: isMobile ? "14px" : "16px" }}>
         {actionLinks.map((link, i) => (
           <motion.a
             key={link.label}
@@ -96,7 +112,7 @@ export default function VehicleInfo({ vehicleName, variant, year }: VehicleInfoP
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0.35 + i * 0.07 }}
             className="group flex items-center gap-3 no-underline"
             style={{
-              fontSize: "14px",
+              fontSize: isMobile ? "13px" : "14px",
               fontWeight: 500,
               color: "#111111",
               textDecoration: "none",
@@ -110,16 +126,16 @@ export default function VehicleInfo({ vehicleName, variant, year }: VehicleInfoP
                 style={{ transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)" }}
               />
             </span>
-            <motion.svg
+            <svg
               width="16"
               height="16"
               viewBox="0 0 16 16"
               fill="none"
-              className="group-hover:translate-x-1 transition-transform duration-300"
+              className="group-hover:translate-x-1 transition-transform duration-300 shrink-0"
               style={{ color: "#A0A0A0" }}
             >
               <path d="M3 8H13M10 5L13 8L10 11" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-            </motion.svg>
+            </svg>
           </motion.a>
         ))}
       </div>
