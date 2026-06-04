@@ -5,7 +5,6 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 
 const actionLinks = [
   { label: "Save Configuration", href: "#" },
-  { label: "Plan Test Drive", href: "#" },
   { label: "Request Invoice", href: "#" },
 ];
 
