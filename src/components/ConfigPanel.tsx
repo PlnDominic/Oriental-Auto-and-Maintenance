@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { formatPrice, type Currency } from "@/lib/currency";
 
 export interface EngineOption {
   id: string;
@@ -16,15 +17,12 @@ export interface EngineOption {
 interface ConfigPanelProps {
   engines: EngineOption[];
   activeEngine: string;
+  currency: Currency;
   onEngineChange: (id: string) => void;
   onChooseColours: () => void;
 }
 
-function formatPrice(price: number) {
-  return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0 }).format(price);
-}
-
-export default function ConfigPanel({ engines, activeEngine, onEngineChange, onChooseColours }: ConfigPanelProps) {
+export default function ConfigPanel({ engines, activeEngine, currency, onEngineChange, onChooseColours }: ConfigPanelProps) {
   const isMobile = useIsMobile();
 
   return (
@@ -83,8 +81,13 @@ export default function ConfigPanel({ engines, activeEngine, onEngineChange, onC
                   {engine.name}
                 </div>
                 <AnimatePresence mode="wait">
-                  <motion.div key={`price-${engine.id}`} initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ fontSize: isMobile ? "12px" : "13px", fontWeight: 500, color: "var(--text-secondary)", transition: "color 0.3s ease" }}>
-                    {formatPrice(engine.price)}
+                  <motion.div
+                    key={`${engine.id}-${currency}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    style={{ fontSize: isMobile ? "12px" : "13px", fontWeight: 500, color: "var(--text-secondary)", transition: "color 0.3s ease" }}
+                  >
+                    {formatPrice(engine.price, currency)}
                   </motion.div>
                 </AnimatePresence>
               </div>

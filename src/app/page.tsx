@@ -13,6 +13,7 @@ import InvoiceModal from "@/components/InvoiceModal";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { BRANDS } from "@/data/vehicles";
 import type { VehicleModel } from "@/data/vehicles";
+import type { Currency } from "@/lib/currency";
 
 /* ── Helpers ── */
 function buildEngines(model: VehicleModel): EngineOption[] {
@@ -48,6 +49,7 @@ export default function ConfiguratorPage() {
   const [activeCategory,  setActiveCategory]  = useState("engine");
   const [colourPanelOpen, setColourPanelOpen] = useState(false);
   const [invoiceOpen,     setInvoiceOpen]     = useState(false);
+  const [currency,        setCurrency]        = useState<Currency>("USD");
 
   const currentEngine = engines.find((e) => e.id === activeEngine) ?? engines[0];
 
@@ -83,6 +85,10 @@ export default function ConfiguratorPage() {
     setColourPanelOpen(id === "exterior");
   }
 
+  function toggleCurrency() {
+    setCurrency((c) => (c === "USD" ? "GHS" : "USD"));
+  }
+
   /* ── Shared invoice modal (rendered once, outside layout branches) ── */
   const invoiceModal = (
     <InvoiceModal
@@ -93,6 +99,7 @@ export default function ConfiguratorPage() {
       year={parseInt(activeModel.year, 10)}
       price={currentEngine.price}
       colorHex={vehicleColor}
+      currency={currency}
     />
   );
 
@@ -103,6 +110,7 @@ export default function ConfiguratorPage() {
         <ColourPicker
           key="colour-picker"
           selectedHex={vehicleColor}
+          currency={currency}
           onColorChange={setVehicleColor}
           onClose={() => {
             setColourPanelOpen(false);
@@ -114,6 +122,7 @@ export default function ConfiguratorPage() {
           key={`config-${activeModel.id}`}
           engines={engines}
           activeEngine={activeEngine}
+          currency={currency}
           onEngineChange={handleEngineChange}
           onChooseColours={() => {
             setColourPanelOpen(true);
@@ -128,7 +137,7 @@ export default function ConfiguratorPage() {
   if (isMobile) {
     return (
       <div style={{ minHeight: "100vh", background: "var(--bg)", transition: "background 0.3s ease" }}>
-        <Header price={currentEngine.price} />
+        <Header price={currentEngine.price} currency={currency} onToggleCurrency={toggleCurrency} />
         <VehicleSelector
           activeBrand={activeBrand}
           activeModelId={activeModel.id}
@@ -159,7 +168,7 @@ export default function ConfiguratorPage() {
   /* ── Desktop layout ── */
   return (
     <div style={{ height: "100vh", background: "var(--bg)", overflow: "hidden", display: "flex", flexDirection: "column", transition: "background 0.3s ease" }}>
-      <Header price={currentEngine.price} />
+      <Header price={currentEngine.price} currency={currency} onToggleCurrency={toggleCurrency} />
       <VehicleSelector
         activeBrand={activeBrand}
         activeModelId={activeModel.id}

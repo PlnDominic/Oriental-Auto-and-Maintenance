@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { formatPremium, type Currency } from "@/lib/currency";
 
 export interface PaintColour {
   id: string;
@@ -56,17 +57,14 @@ function swatchBackground(finish: string, hex: string) {
   return hex;
 }
 
-function formatPrice(n: number) {
-  return n === 0 ? "Included" : `+$${n.toLocaleString()}`;
-}
-
 interface ColourPickerProps {
   selectedHex: string;
+  currency: Currency;
   onColorChange: (hex: string) => void;
   onClose: () => void;
 }
 
-export default function ColourPicker({ selectedHex, onColorChange, onClose }: ColourPickerProps) {
+export default function ColourPicker({ selectedHex, currency, onColorChange, onClose }: ColourPickerProps) {
   const isMobile = useIsMobile();
   const [activeFinish, setActiveFinish] = useState("metallic");
   const [hovered, setHovered] = useState<PaintColour | null>(null);
@@ -136,7 +134,9 @@ export default function ColourPicker({ selectedHex, onColorChange, onClose }: Co
               />
               <span style={{ fontSize: "12px", fontWeight: 500, color: "var(--text-secondary)", letterSpacing: "0.01em", whiteSpace: "nowrap", transition: "color 0.3s ease" }}>
                 {currentColour.name}
-                <span style={{ color: "var(--text-muted)", marginLeft: "6px" }}>{formatPrice(currentColour.price)}</span>
+                <span style={{ color: "var(--text-muted)", marginLeft: "6px" }}>
+                  {formatPremium(currentColour.price, currency)}
+                </span>
               </span>
             </motion.div>
           ) : (
@@ -217,16 +217,14 @@ export default function ColourPicker({ selectedHex, onColorChange, onClose }: Co
                       border: "none",
                       padding: 0,
                       outline: "none",
-                      /* Active: double-ring — gap then outline */
                       boxShadow: isSelected
                         ? `0 0 0 2.5px var(--bg), 0 0 0 4.5px var(--text-primary)`
                         : `0 0 0 1px var(--border)`,
                       transition: "box-shadow 0.2s ease, transform 0.2s ease",
                       flexShrink: 0,
                     }}
-                    title={colour.name}
+                    title={`${colour.name} — ${formatPremium(colour.price, currency)}`}
                   >
-                    {/* Matte finish overlay — slightly duller */}
                     {activeFinish === "matte" && (
                       <div
                         style={{
@@ -238,7 +236,6 @@ export default function ColourPicker({ selectedHex, onColorChange, onClose }: Co
                         }}
                       />
                     )}
-                    {/* Selected checkmark for very light swatches */}
                     {isSelected && (
                       <motion.div
                         initial={{ scale: 0 }}

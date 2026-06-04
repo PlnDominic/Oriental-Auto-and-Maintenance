@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { formatPrice, type Currency } from "@/lib/currency";
 
 interface InvoiceModalProps {
   isOpen: boolean;
@@ -12,6 +13,7 @@ interface InvoiceModalProps {
   year: number;
   price: number;
   colorHex: string;
+  currency: Currency;
 }
 
 export default function InvoiceModal({
@@ -22,6 +24,7 @@ export default function InvoiceModal({
   year,
   price,
   colorHex,
+  currency,
 }: InvoiceModalProps) {
   const isMobile = useIsMobile();
   const [name, setName]       = useState("");
@@ -102,7 +105,7 @@ export default function InvoiceModal({
           <span style={{ fontSize: "13px", color: "var(--text-secondary)" }}>{variant}</span>
         </div>
         <span style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-primary)", letterSpacing: "-0.01em" }}>
-          USD {price.toLocaleString()}
+          {formatPrice(price, currency)}
         </span>
       </div>
 

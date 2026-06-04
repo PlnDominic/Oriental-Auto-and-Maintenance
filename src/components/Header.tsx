@@ -3,9 +3,12 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { useTheme } from "@/hooks/useTheme";
+import { formatPrice, type Currency } from "@/lib/currency";
 
 interface HeaderProps {
   price: number;
+  currency: Currency;
+  onToggleCurrency: () => void;
 }
 
 function SunIcon() {
@@ -25,16 +28,49 @@ function MoonIcon() {
   );
 }
 
-export default function Header({ price }: HeaderProps) {
+function CurrencyToggle({ currency, onToggle, small }: { currency: Currency; onToggle: () => void; small?: boolean }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        border: "1px solid var(--border)",
+        overflow: "hidden",
+        flexShrink: 0,
+        transition: "border-color 0.3s ease",
+      }}
+    >
+      {(["USD", "GHS"] as Currency[]).map((c) => {
+        const isActive = currency === c;
+        return (
+          <button
+            key={c}
+            onClick={() => { if (!isActive) onToggle(); }}
+            style={{
+              padding: small ? "2px 6px" : "3px 8px",
+              background: isActive ? "var(--text-primary)" : "transparent",
+              color: isActive ? "var(--bg)" : "var(--text-muted)",
+              border: "none",
+              cursor: isActive ? "default" : "pointer",
+              fontSize: small ? "9px" : "10px",
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              transition: "background 0.2s ease, color 0.2s ease",
+              fontFamily: "inherit",
+            }}
+          >
+            {c}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+export default function Header({ price, currency, onToggleCurrency }: HeaderProps) {
   const isMobile = useIsMobile();
   const { isDark, toggle } = useTheme();
 
-  const formattedPrice = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(price);
+  const priceDisplay = formatPrice(price, currency);
 
   return (
     <motion.header
@@ -80,8 +116,8 @@ export default function Header({ price }: HeaderProps) {
         </nav>
       )}
 
-      {/* Right side: theme toggle + price */}
-      <div className="flex items-center" style={{ gap: isMobile ? "12px" : "20px" }}>
+      {/* Right side: theme toggle + currency toggle + price */}
+      <div className="flex items-center" style={{ gap: isMobile ? "10px" : "20px" }}>
         {/* Theme toggle */}
         <motion.button
           onClick={toggle}
@@ -111,23 +147,47 @@ export default function Header({ price }: HeaderProps) {
           </AnimatePresence>
         </motion.button>
 
-        {/* Price */}
-        <div className="flex flex-col items-end">
-          {!isMobile && (
-            <span style={{ fontSize: "11px", color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 500, transition: "color 0.3s ease" }}>
-              Current Configuration
-            </span>
-          )}
-          <motion.span
-            key={price}
-            initial={{ opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            style={{ fontSize: isMobile ? "17px" : "22px", fontWeight: 600, color: "var(--text-primary)", letterSpacing: "-0.02em", transition: "color 0.3s ease" }}
-          >
-            {formattedPrice}
-          </motion.span>
-        </div>
+        {/* Price + currency toggle */}
+        {isMobile ? (
+          /* Mobile: toggle pill sits left of the price number */
+          <div className="flex items-center" style={{ gap: "8px" }}>
+            <CurrencyToggle currency={currency} onToggle={onToggleCurrency} small />
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={`${price}-${currency}`}
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                style={{ fontSize: "16px", fontWeight: 600, color: "var(--text-primary)", letterSpacing: "-0.02em", transition: "color 0.3s ease", whiteSpace: "nowrap" }}
+              >
+                {priceDisplay}
+              </motion.span>
+            </AnimatePresence>
+          </div>
+        ) : (
+          /* Desktop: label row has toggle on the right, price below */
+          <div className="flex flex-col items-end" style={{ gap: "4px" }}>
+            <div className="flex items-center" style={{ gap: "10px" }}>
+              <span style={{ fontSize: "11px", color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 500, transition: "color 0.3s ease" }}>
+                Current Configuration
+              </span>
+              <CurrencyToggle currency={currency} onToggle={onToggleCurrency} />
+            </div>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={`${price}-${currency}`}
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                style={{ fontSize: "22px", fontWeight: 600, color: "var(--text-primary)", letterSpacing: "-0.02em", transition: "color 0.3s ease" }}
+              >
+                {priceDisplay}
+              </motion.span>
+            </AnimatePresence>
+          </div>
+        )}
       </div>
     </motion.header>
   );
