@@ -9,6 +9,7 @@ import VehicleDisplay from "@/components/VehicleDisplay";
 import ConfigPanel, { EngineOption } from "@/components/ConfigPanel";
 import ColourPicker from "@/components/ColourPicker";
 import VehicleSelector from "@/components/VehicleSelector";
+import InvoiceModal from "@/components/InvoiceModal";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import { BRANDS } from "@/data/vehicles";
 import type { VehicleModel } from "@/data/vehicles";
@@ -46,6 +47,7 @@ export default function ConfiguratorPage() {
   const [vehicleColor,    setVehicleColor]    = useState(engineDefaults[engines[0].id]);
   const [activeCategory,  setActiveCategory]  = useState("engine");
   const [colourPanelOpen, setColourPanelOpen] = useState(false);
+  const [invoiceOpen,     setInvoiceOpen]     = useState(false);
 
   const currentEngine = engines.find((e) => e.id === activeEngine) ?? engines[0];
 
@@ -80,6 +82,19 @@ export default function ConfiguratorPage() {
     setActiveCategory(id);
     setColourPanelOpen(id === "exterior");
   }
+
+  /* ── Shared invoice modal (rendered once, outside layout branches) ── */
+  const invoiceModal = (
+    <InvoiceModal
+      isOpen={invoiceOpen}
+      onClose={() => setInvoiceOpen(false)}
+      vehicleName={`${activeModel.brand} ${activeModel.model}`}
+      variant={variantLabels[activeEngine] ?? ""}
+      year={parseInt(activeModel.year, 10)}
+      price={currentEngine.price}
+      colorHex={vehicleColor}
+    />
+  );
 
   /* ── Bottom panel ── */
   const bottomPanel = (
@@ -131,10 +146,12 @@ export default function ConfiguratorPage() {
               vehicleName={`${activeModel.brand} ${activeModel.model}`}
               year={parseInt(activeModel.year, 10)}
               variant={variantLabels[activeEngine] ?? ""}
+              onRequestInvoice={() => setInvoiceOpen(true)}
             />
           </AnimatePresence>
           {bottomPanel}
         </div>
+        {invoiceModal}
       </div>
     );
   }
@@ -159,12 +176,14 @@ export default function ConfiguratorPage() {
               vehicleName={`${activeModel.brand} ${activeModel.model}`}
               year={parseInt(activeModel.year, 10)}
               variant={variantLabels[activeEngine] ?? ""}
+              onRequestInvoice={() => setInvoiceOpen(true)}
             />
           </AnimatePresence>
           <VehicleDisplay activeEngine={activeEngine} vehicleColor={vehicleColor} />
         </div>
         {bottomPanel}
       </main>
+      {invoiceModal}
     </div>
   );
 }

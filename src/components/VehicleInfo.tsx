@@ -3,19 +3,20 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
-const actionLinks = [
-  { label: "Save Configuration", href: "#" },
-  { label: "Request Invoice", href: "#" },
-];
-
 interface VehicleInfoProps {
   vehicleName: string;
   variant: string;
   year: number;
+  onRequestInvoice: () => void;
 }
 
-export default function VehicleInfo({ vehicleName, variant, year }: VehicleInfoProps) {
+export default function VehicleInfo({ vehicleName, variant, year, onRequestInvoice }: VehicleInfoProps) {
   const isMobile = useIsMobile();
+
+  const links = [
+    { label: "Save Configuration", onClick: undefined as (() => void) | undefined, href: "#" },
+    { label: "Request Invoice",    onClick: onRequestInvoice,                       href: undefined },
+  ];
 
   return (
     <motion.div
@@ -71,15 +72,21 @@ export default function VehicleInfo({ vehicleName, variant, year }: VehicleInfoP
       <div style={{ width: "40px", height: "1px", background: "var(--border)", marginBottom: isMobile ? "20px" : "40px", transition: "background 0.3s ease" }} />
 
       <div className="flex flex-col" style={{ gap: isMobile ? "14px" : "16px" }}>
-        {actionLinks.map((link, i) => (
+        {links.map((link, i) => (
           <motion.a
             key={link.label}
-            href={link.href}
+            href={link.href ?? "#"}
+            onClick={(e) => {
+              if (link.onClick) {
+                e.preventDefault();
+                link.onClick();
+              }
+            }}
             initial={{ opacity: 0, x: -12 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0.35 + i * 0.07 }}
             className="group flex items-center gap-3 no-underline"
-            style={{ fontSize: isMobile ? "13px" : "14px", fontWeight: 500, color: "var(--text-primary)", textDecoration: "none", letterSpacing: "0.01em", transition: "color 0.3s ease" }}
+            style={{ fontSize: isMobile ? "13px" : "14px", fontWeight: 500, color: "var(--text-primary)", textDecoration: "none", letterSpacing: "0.01em", transition: "color 0.3s ease", cursor: "pointer" }}
           >
             <span className="relative">
               {link.label}
