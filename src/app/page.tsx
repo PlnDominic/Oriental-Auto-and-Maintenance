@@ -8,37 +8,67 @@ import VehicleInfo from "@/components/VehicleInfo";
 import VehicleDisplay from "@/components/VehicleDisplay";
 import ConfigPanel, { EngineOption } from "@/components/ConfigPanel";
 import ColourPicker from "@/components/ColourPicker";
+import VehicleSelector from "@/components/VehicleSelector";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { BRANDS } from "@/data/vehicles";
+import type { VehicleModel } from "@/data/vehicles";
 
-const engines: EngineOption[] = [
-  { id: "35-tfsi", name: "35 TFSI",         price: 41848, horsepower: 150, acceleration: 8.9, consumption: "38 mpg" },
-  { id: "40-tfsi", name: "40 TFSI S",       price: 46490, horsepower: 197, acceleration: 6.8, consumption: "34 mpg", tag: "Popular" },
-  { id: "45-tfsi", name: "45 TFSI quattro", price: 52950, horsepower: 245, acceleration: 5.4, consumption: "30 mpg" },
-  { id: "tts",     name: "TTS quattro",     price: 59900, horsepower: 288, acceleration: 4.9, consumption: "28 mpg", tag: "Sport" },
-];
+/* ── Helpers ── */
+function buildEngines(model: VehicleModel): EngineOption[] {
+  return model.engines.map(({ defaultColor: _dc, variantLabel: _vl, ...rest }) => rest);
+}
 
-const engineDefaults: Record<string, string> = {
-  "35-tfsi": "#C2C2BA",
-  "40-tfsi": "#E8E0D0",
-  "45-tfsi": "#1D3A5B",
-  "tts":     "#1C1C1C",
-};
+function buildEngineDefaults(model: VehicleModel): Record<string, string> {
+  return Object.fromEntries(model.engines.map((e) => [e.id, e.defaultColor]));
+}
 
-const variants: Record<string, string> = {
-  "35-tfsi": "35 TFSI S Tronic — 150 PS",
-  "40-tfsi": "40 TFSI S Tronic — 197 PS",
-  "45-tfsi": "45 TFSI quattro S Tronic — 245 PS",
-  "tts":     "TTS Roadster quattro — 288 PS",
-};
+function buildVariantLabels(model: VehicleModel): Record<string, string> {
+  return Object.fromEntries(model.engines.map((e) => [e.id, e.variantLabel]));
+}
+
+/* ── Initial state from first brand/model ── */
+const initialModel = BRANDS[0].models[0];
 
 export default function ConfiguratorPage() {
-  const [activeCategory, setActiveCategory]     = useState("engine");
-  const [activeEngine,   setActiveEngine]        = useState("40-tfsi");
-  const [vehicleColor,   setVehicleColor]        = useState(engineDefaults["40-tfsi"]);
-  const [colourPanelOpen, setColourPanelOpen]    = useState(false);
   const isMobile = useIsMobile();
 
-  const currentEngine = engines.find((e) => e.id === activeEngine) ?? engines[1];
+  /* Brand / model selection */
+  const [activeBrand, setActiveBrand]   = useState(BRANDS[0].id);
+  const [activeModel,  setActiveModel]  = useState<VehicleModel>(initialModel);
+
+  /* Derived from selected model */
+  const engines        = buildEngines(activeModel);
+  const engineDefaults = buildEngineDefaults(activeModel);
+  const variantLabels  = buildVariantLabels(activeModel);
+
+  /* Configurator state */
+  const [activeEngine,    setActiveEngine]    = useState(engines[0].id);
+  const [vehicleColor,    setVehicleColor]    = useState(engineDefaults[engines[0].id]);
+  const [activeCategory,  setActiveCategory]  = useState("engine");
+  const [colourPanelOpen, setColourPanelOpen] = useState(false);
+
+  const currentEngine = engines.find((e) => e.id === activeEngine) ?? engines[0];
+
+  /* Selector height (two rows) */
+  const selectorHeight = isMobile ? 76 : 88;
+  const headerHeight   = isMobile ? 60 : 80;
+  const topOffset      = headerHeight + selectorHeight;
+
+  /* ── Handlers ── */
+  function handleBrandChange(brandId: string) {
+    setActiveBrand(brandId);
+  }
+
+  function handleModelChange(model: VehicleModel) {
+    setActiveModel(model);
+    const newEngines  = buildEngines(model);
+    const newDefaults = buildEngineDefaults(model);
+    const firstId     = newEngines[0].id;
+    setActiveEngine(firstId);
+    setVehicleColor(newDefaults[firstId]);
+    setColourPanelOpen(false);
+    setActiveCategory("engine");
+  }
 
   function handleEngineChange(id: string) {
     setActiveEngine(id);
@@ -48,14 +78,10 @@ export default function ConfiguratorPage() {
 
   function handleCategoryChange(id: string) {
     setActiveCategory(id);
-    if (id === "exterior") {
-      setColourPanelOpen(true);
-    } else {
-      setColourPanelOpen(false);
-    }
+    setColourPanelOpen(id === "exterior");
   }
 
-  /* ── Bottom panel (shared by both layouts) ── */
+  /* ── Bottom panel ── */
   const bottomPanel = (
     <AnimatePresence mode="wait">
       {colourPanelOpen ? (
@@ -70,7 +96,7 @@ export default function ConfiguratorPage() {
         />
       ) : (
         <ConfigPanel
-          key="config-panel"
+          key={`config-${activeModel.id}`}
           engines={engines}
           activeEngine={activeEngine}
           onEngineChange={handleEngineChange}
@@ -88,13 +114,24 @@ export default function ConfiguratorPage() {
     return (
       <div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", flexDirection: "column", transition: "background 0.3s ease" }}>
         <Header price={currentEngine.price} />
-        <div style={{ marginTop: "60px", display: "flex", flexDirection: "column", flex: 1 }}>
+        <VehicleSelector
+          activeBrand={activeBrand}
+          activeModelId={activeModel.id}
+          onBrandChange={handleBrandChange}
+          onModelChange={handleModelChange}
+        />
+        <div style={{ marginTop: topOffset, display: "flex", flexDirection: "column", flex: 1 }}>
           <Sidebar activeCategory={activeCategory} onCategoryChange={handleCategoryChange} />
           <AnimatePresence mode="wait">
             <VehicleDisplay key={`display-${activeEngine}`} activeEngine={activeEngine} vehicleColor={vehicleColor} />
           </AnimatePresence>
           <AnimatePresence mode="wait">
-            <VehicleInfo key={`info-${activeEngine}`} vehicleName="Audi TT" year={2024} variant={variants[activeEngine]} />
+            <VehicleInfo
+              key={`info-${activeEngine}`}
+              vehicleName={`${activeModel.brand} ${activeModel.model}`}
+              year={parseInt(activeModel.year, 10)}
+              variant={variantLabels[activeEngine] ?? ""}
+            />
           </AnimatePresence>
           {bottomPanel}
         </div>
@@ -106,12 +143,23 @@ export default function ConfiguratorPage() {
   return (
     <div style={{ height: "100vh", background: "var(--bg)", overflow: "hidden", display: "flex", flexDirection: "column", transition: "background 0.3s ease" }}>
       <Header price={currentEngine.price} />
-      <main style={{ marginTop: "80px", display: "flex", flexDirection: "column", flex: 1, overflow: "hidden" }}>
+      <VehicleSelector
+        activeBrand={activeBrand}
+        activeModelId={activeModel.id}
+        onBrandChange={handleBrandChange}
+        onModelChange={handleModelChange}
+      />
+      <main style={{ marginTop: topOffset, display: "flex", flexDirection: "column", flex: 1, overflow: "hidden" }}>
         <div style={{ display: "flex", flex: 1, alignItems: "center", overflow: "hidden", padding: "0 40px 0 24px", minHeight: 0 }}>
           <Sidebar activeCategory={activeCategory} onCategoryChange={handleCategoryChange} />
           <div style={{ width: "1px", height: "60%", background: "var(--border-divider)", margin: "0 32px", flexShrink: 0 }} />
           <AnimatePresence mode="wait">
-            <VehicleInfo key={activeEngine} vehicleName="Audi TT" year={2024} variant={variants[activeEngine]} />
+            <VehicleInfo
+              key={`${activeModel.id}-${activeEngine}`}
+              vehicleName={`${activeModel.brand} ${activeModel.model}`}
+              year={parseInt(activeModel.year, 10)}
+              variant={variantLabels[activeEngine] ?? ""}
+            />
           </AnimatePresence>
           <VehicleDisplay activeEngine={activeEngine} vehicleColor={vehicleColor} />
         </div>
