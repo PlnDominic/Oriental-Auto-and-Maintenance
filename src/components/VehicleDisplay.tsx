@@ -44,11 +44,11 @@ function CarSilhouette({ color }: { color: string }) {
 }
 
 interface VehicleDisplayProps {
-  activeEngine: string;
+  activeVariant: string;
   vehicleColor: string;
 }
 
-export default function VehicleDisplay({ activeEngine, vehicleColor }: VehicleDisplayProps) {
+export default function VehicleDisplay({ activeVariant, vehicleColor }: VehicleDisplayProps) {
   const [currentView, setCurrentView] = useState(0);
   const isMobile = useIsMobile();
   const totalViews = vehicleViews.length;
@@ -71,7 +71,7 @@ export default function VehicleDisplay({ activeEngine, vehicleColor }: VehicleDi
       <div className="relative w-full flex items-center justify-center" style={{ height: isMobile ? "240px" : "420px" }}>
         <AnimatePresence mode="wait">
           <motion.div
-            key={`${activeEngine}-${currentView}`}
+            key={`${activeVariant}-${currentView}`}
             initial={{ opacity: 0, scale: 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.02 }}
