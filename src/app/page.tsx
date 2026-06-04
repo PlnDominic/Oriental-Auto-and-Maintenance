@@ -112,7 +112,7 @@ export default function ConfiguratorPage() {
   /* ── Mobile layout ── */
   if (isMobile) {
     return (
-      <div style={{ minHeight: "100vh", background: "var(--bg)", display: "flex", flexDirection: "column", transition: "background 0.3s ease" }}>
+      <div style={{ minHeight: "100vh", background: "var(--bg)", transition: "background 0.3s ease" }}>
         <Header price={currentEngine.price} />
         <VehicleSelector
           activeBrand={activeBrand}
@@ -120,7 +120,7 @@ export default function ConfiguratorPage() {
           onBrandChange={handleBrandChange}
           onModelChange={handleModelChange}
         />
-        <div style={{ marginTop: topOffset, display: "flex", flexDirection: "column", flex: 1 }}>
+        <div style={{ marginTop: topOffset, display: "flex", flexDirection: "column" }}>
           <Sidebar activeCategory={activeCategory} onCategoryChange={handleCategoryChange} />
           <AnimatePresence mode="wait">
             <VehicleDisplay key={`display-${activeEngine}`} activeEngine={activeEngine} vehicleColor={vehicleColor} />
