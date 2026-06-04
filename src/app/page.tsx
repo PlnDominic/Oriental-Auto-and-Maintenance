@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
@@ -14,6 +14,7 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 import { BRANDS } from "@/data/vehicles";
 import type { VehicleModel } from "@/data/vehicles";
 import type { Currency } from "@/lib/currency";
+import { readConfigFromUrl, writeConfigToUrl } from "@/lib/configUrl";
 
 /* ── Helpers ── */
 function buildEngines(model: VehicleModel): EngineOption[] {
@@ -50,8 +51,38 @@ export default function ConfiguratorPage() {
   const [colourPanelOpen, setColourPanelOpen] = useState(false);
   const [invoiceOpen,     setInvoiceOpen]     = useState(false);
   const [currency,        setCurrency]        = useState<Currency>("USD");
+  const [urlReady,        setUrlReady]        = useState(false);
 
   const currentEngine = engines.find((e) => e.id === activeEngine) ?? engines[0];
+
+  /* ── Restore state from URL on first render ── */
+  useEffect(() => {
+    const saved = readConfigFromUrl();
+    if (saved) {
+      const newEngines  = buildEngines(saved.model);
+      const newDefaults = buildEngineDefaults(saved.model);
+      setActiveBrand(saved.brandId);
+      setActiveModel(saved.model);
+      setActiveEngine(saved.engineId);
+      /* Use the saved color if it's a valid default for the engine, else use it anyway (custom paint) */
+      setVehicleColor(saved.color);
+      setCurrency(saved.currency);
+    }
+    setUrlReady(true);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /* ── Keep URL in sync with configurator state ── */
+  useEffect(() => {
+    if (!urlReady) return;
+    writeConfigToUrl({
+      brandId:  activeBrand,
+      modelId:  activeModel.id,
+      engineId: activeEngine,
+      color:    vehicleColor,
+      currency,
+    });
+  }, [urlReady, activeBrand, activeModel.id, activeEngine, vehicleColor, currency]);
 
   /* Selector height (two rows) */
   const selectorHeight = isMobile ? 76 : 88;

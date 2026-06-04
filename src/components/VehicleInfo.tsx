@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useIsMobile } from "@/hooks/useIsMobile";
 
@@ -12,11 +13,28 @@ interface VehicleInfoProps {
 
 export default function VehicleInfo({ vehicleName, variant, year, onRequestInvoice }: VehicleInfoProps) {
   const isMobile = useIsMobile();
+  const [copied, setCopied] = useState(false);
 
-  const links = [
-    { label: "Save Configuration", onClick: undefined as (() => void) | undefined, href: "#" },
-    { label: "Request Invoice",    onClick: onRequestInvoice,                       href: undefined },
-  ];
+  function handleSave(e: React.MouseEvent) {
+    e.preventDefault();
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2200);
+    });
+  }
+
+  const linkStyle: React.CSSProperties = {
+    fontSize: isMobile ? "13px" : "14px",
+    fontWeight: 500,
+    color: "var(--text-primary)",
+    textDecoration: "none",
+    letterSpacing: "0.01em",
+    transition: "color 0.3s ease",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+  };
 
   return (
     <motion.div
@@ -72,34 +90,98 @@ export default function VehicleInfo({ vehicleName, variant, year, onRequestInvoi
       <div style={{ width: "40px", height: "1px", background: "var(--border)", marginBottom: isMobile ? "20px" : "40px", transition: "background 0.3s ease" }} />
 
       <div className="flex flex-col" style={{ gap: isMobile ? "14px" : "16px" }}>
-        {links.map((link, i) => (
-          <motion.a
-            key={link.label}
-            href={link.href ?? "#"}
-            onClick={(e) => {
-              if (link.onClick) {
-                e.preventDefault();
-                link.onClick();
-              }
-            }}
-            initial={{ opacity: 0, x: -12 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0.35 + i * 0.07 }}
-            className="group flex items-center gap-3 no-underline"
-            style={{ fontSize: isMobile ? "13px" : "14px", fontWeight: 500, color: "var(--text-primary)", textDecoration: "none", letterSpacing: "0.01em", transition: "color 0.3s ease", cursor: "pointer" }}
-          >
-            <span className="relative">
-              {link.label}
-              <span
-                className="absolute bottom-[-1px] left-0 right-0 h-px origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
-                style={{ background: "var(--accent-line)", transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)" }}
-              />
-            </span>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="group-hover:translate-x-1 transition-transform duration-300 shrink-0" style={{ color: "var(--text-muted)" }}>
-              <path d="M3 8H13M10 5L13 8L10 11" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </motion.a>
-        ))}
+        {/* Save Configuration — copies URL */}
+        <motion.a
+          href="#"
+          onClick={handleSave}
+          initial={{ opacity: 0, x: -12 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0.35 }}
+          className="group"
+          style={linkStyle}
+        >
+          <span className="relative">
+            <AnimatePresence mode="wait">
+              {copied ? (
+                <motion.span
+                  key="copied"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.2 }}
+                  style={{ color: "var(--text-muted)", display: "block" }}
+                >
+                  Link copied
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="save"
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.2 }}
+                  style={{ display: "block" }}
+                >
+                  Save Configuration
+                  <span
+                    className="absolute bottom-[-1px] left-0 right-0 h-px origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                    style={{ background: "var(--accent-line)", transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)" }}
+                  />
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </span>
+          <AnimatePresence mode="wait">
+            {copied ? (
+              <motion.svg
+                key="check"
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                width="16" height="16" viewBox="0 0 16 16" fill="none"
+                style={{ color: "var(--text-muted)", flexShrink: 0 }}
+              >
+                <path d="M3 8L6.5 11.5L13 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+              </motion.svg>
+            ) : (
+              <motion.svg
+                key="arrow"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+                width="16" height="16" viewBox="0 0 16 16" fill="none"
+                className="group-hover:translate-x-1 transition-transform duration-300"
+                style={{ color: "var(--text-muted)", flexShrink: 0 }}
+              >
+                <path d="M3 8H13M10 5L13 8L10 11" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+              </motion.svg>
+            )}
+          </AnimatePresence>
+        </motion.a>
+
+        {/* Request Invoice */}
+        <motion.a
+          href="#"
+          onClick={(e) => { e.preventDefault(); onRequestInvoice(); }}
+          initial={{ opacity: 0, x: -12 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0.42 }}
+          className="group"
+          style={linkStyle}
+        >
+          <span className="relative">
+            Request Invoice
+            <span
+              className="absolute bottom-[-1px] left-0 right-0 h-px origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+              style={{ background: "var(--accent-line)", transitionTimingFunction: "cubic-bezier(0.22,1,0.36,1)" }}
+            />
+          </span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="group-hover:translate-x-1 transition-transform duration-300 shrink-0" style={{ color: "var(--text-muted)" }}>
+            <path d="M3 8H13M10 5L13 8L10 11" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </motion.a>
       </div>
     </motion.div>
   );
