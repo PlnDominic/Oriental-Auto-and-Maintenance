@@ -6,64 +6,38 @@ import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import VehicleInfo from "@/components/VehicleInfo";
 import VehicleDisplay from "@/components/VehicleDisplay";
-import ConfigPanel, { EngineOption } from "@/components/ConfigPanel";
+import VehiclePanel from "@/components/VehiclePanel";
+import { vehicles } from "@/data/vehicles";
 
-const engines: EngineOption[] = [
-  {
-    id: "35-tfsi",
-    name: "35 TFSI",
-    price: 41848,
-    horsepower: 150,
-    acceleration: 8.9,
-    consumption: "38 mpg",
-  },
-  {
-    id: "40-tfsi",
-    name: "40 TFSI S",
-    price: 46490,
-    horsepower: 197,
-    acceleration: 6.8,
-    consumption: "34 mpg",
-    tag: "Popular",
-  },
-  {
-    id: "45-tfsi",
-    name: "45 TFSI quattro",
-    price: 52950,
-    horsepower: 245,
-    acceleration: 5.4,
-    consumption: "30 mpg",
-  },
-  {
-    id: "tts",
-    name: "TTS quattro",
-    price: 59900,
-    horsepower: 288,
-    acceleration: 4.9,
-    consumption: "28 mpg",
-    tag: "Sport",
-  },
-];
+export default function ShowroomPage() {
+  const [activeBrand, setActiveBrand] = useState("All");
+  const [activeVehicle, setActiveVehicle] = useState(vehicles[0].id);
 
-const vehicleColors: Record<string, string> = {
-  "35-tfsi": "#C8C8C0",
-  "40-tfsi": "#E8E0D0",
-  "45-tfsi": "#2A3A4A",
-  "tts": "#1A1A1A",
-};
+  const filteredVehicles =
+    activeBrand === "All"
+      ? vehicles
+      : vehicles.filter((v) => v.brand === activeBrand);
 
-const variants: Record<string, string> = {
-  "35-tfsi": "35 TFSI S Tronic — 150 PS",
-  "40-tfsi": "40 TFSI S Tronic — 197 PS",
-  "45-tfsi": "45 TFSI quattro S Tronic — 245 PS",
-  "tts": "TTS Roadster quattro — 288 PS",
-};
+  const currentIndex = Math.max(
+    0,
+    filteredVehicles.findIndex((v) => v.id === activeVehicle)
+  );
+  const currentVehicle = filteredVehicles[currentIndex] ?? filteredVehicles[0];
 
-export default function ConfiguratorPage() {
-  const [activeCategory, setActiveCategory] = useState("engine");
-  const [activeEngine, setActiveEngine] = useState("40-tfsi");
+  const handleBrandChange = (brand: string) => {
+    setActiveBrand(brand);
+    const pool = brand === "All" ? vehicles : vehicles.filter((v) => v.brand === brand);
+    if (!pool.some((v) => v.id === activeVehicle)) {
+      setActiveVehicle(pool[0].id);
+    }
+  };
 
-  const currentEngine = engines.find((e) => e.id === activeEngine) ?? engines[1];
+  const showPrev = () =>
+    setActiveVehicle(
+      filteredVehicles[(currentIndex - 1 + filteredVehicles.length) % filteredVehicles.length].id
+    );
+  const showNext = () =>
+    setActiveVehicle(filteredVehicles[(currentIndex + 1) % filteredVehicles.length].id);
 
   return (
     <div
@@ -74,7 +48,7 @@ export default function ConfiguratorPage() {
         overflow: "hidden",
       }}
     >
-      <Header price={currentEngine.price} />
+      <Header vehicleCount={vehicles.length} />
 
       {/* Main area — fills remaining height below header */}
       <main
@@ -86,11 +60,8 @@ export default function ConfiguratorPage() {
           className="flex flex-1 items-center overflow-hidden"
           style={{ padding: "0 40px 0 24px", minHeight: 0 }}
         >
-          {/* Sidebar */}
-          <Sidebar
-            activeCategory={activeCategory}
-            onCategoryChange={setActiveCategory}
-          />
+          {/* Brand filter */}
+          <Sidebar activeBrand={activeBrand} onBrandChange={handleBrandChange} />
 
           {/* Vertical divider */}
           <div
@@ -106,25 +77,28 @@ export default function ConfiguratorPage() {
           {/* Vehicle info */}
           <AnimatePresence mode="wait">
             <VehicleInfo
-              key={activeEngine}
-              vehicleName="Audi TT"
-              year={2024}
-              variant={variants[activeEngine]}
+              key={currentVehicle.id}
+              vehicleName={currentVehicle.name}
+              year={currentVehicle.year}
+              variant={currentVehicle.variant}
             />
           </AnimatePresence>
 
           {/* Vehicle display */}
           <VehicleDisplay
-            activeEngine={activeEngine}
-            vehicleColor={vehicleColors[activeEngine] ?? "#C8C8C0"}
+            vehicle={currentVehicle}
+            index={currentIndex}
+            total={filteredVehicles.length}
+            onPrev={showPrev}
+            onNext={showNext}
           />
         </div>
 
-        {/* Config panel */}
-        <ConfigPanel
-          engines={engines}
-          activeEngine={activeEngine}
-          onEngineChange={setActiveEngine}
+        {/* Vehicle selector panel */}
+        <VehiclePanel
+          vehicles={filteredVehicles}
+          activeVehicle={currentVehicle.id}
+          onVehicleChange={setActiveVehicle}
         />
       </main>
     </div>

@@ -1,78 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-
-const categories = [
-  {
-    id: "engine",
-    label: "Engine",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <rect x="4" y="10" width="20" height="12" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M8 10V7M14 10V6M20 10V7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M4 16H1M27 16H24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <rect x="10" y="13" width="8" height="6" rx="1" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-    ),
-  },
-  {
-    id: "exterior",
-    label: "Exterior",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <path d="M3 18L7 12L11 9H17L21 12L25 18" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-        <path d="M2 18H26V20C26 20.5523 25.5523 21 25 21H3C2.44772 21 2 20.5523 2 20V18Z" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="8" cy="21" r="2.5" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="20" cy="21" r="2.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M11 9V12H17V9" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-    ),
-  },
-  {
-    id: "wheels",
-    label: "Wheels",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <circle cx="14" cy="14" r="10" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="14" cy="14" r="3.5" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M14 4V10.5M14 17.5V24M4 14H10.5M17.5 14H24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M7.05 7.05L11.54 11.54M16.46 16.46L20.95 20.95M20.95 7.05L16.46 11.54M11.54 16.46L7.05 20.95" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    id: "interior",
-    label: "Interior",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <path d="M5 20V11C5 9.89543 5.89543 9 7 9H21C22.1046 9 23 9.89543 23 11V20" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M3 20H25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M8 9V7C8 6.44772 8.44772 6 9 6H19C19.5523 6 20 6.44772 20 7V9" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M5 15H23" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M12 15V20M16 15V20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
-    id: "packages",
-    label: "Packages",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-        <path d="M14 3L25 8.5V19.5L14 25L3 19.5V8.5L14 3Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-        <path d="M14 3V25" stroke="currentColor" strokeWidth="1.5" />
-        <path d="M3 8.5L14 14L25 8.5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-        <path d="M8.5 5.75L19.5 11.25" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-];
+import { brands } from "@/data/vehicles";
 
 interface SidebarProps {
-  activeCategory: string;
-  onCategoryChange: (id: string) => void;
+  activeBrand: string;
+  onBrandChange: (brand: string) => void;
 }
 
-export default function Sidebar({ activeCategory, onCategoryChange }: SidebarProps) {
+export default function Sidebar({ activeBrand, onBrandChange }: SidebarProps) {
   return (
     <motion.aside
       initial={{ opacity: 0, x: -20 }}
@@ -81,19 +17,19 @@ export default function Sidebar({ activeCategory, onCategoryChange }: SidebarPro
       className="flex flex-col items-center justify-center gap-3 shrink-0"
       style={{ width: "100px" }}
     >
-      {categories.map((cat, i) => {
-        const isActive = activeCategory === cat.id;
+      {brands.map((brand, i) => {
+        const isActive = activeBrand === brand;
         return (
           <motion.button
-            key={cat.id}
+            key={brand}
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0.15 + i * 0.07 }}
-            onClick={() => onCategoryChange(cat.id)}
-            className="relative flex flex-col items-center justify-center gap-2 cursor-pointer group"
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0.15 + i * 0.05 }}
+            onClick={() => onBrandChange(brand)}
+            className="relative flex flex-col items-center justify-center cursor-pointer group"
             style={{
-              width: "72px",
-              height: "72px",
+              width: "84px",
+              height: "44px",
               background: isActive ? "#FFFFFF" : "transparent",
               border: isActive ? "1px solid #E5E5E5" : "1px solid transparent",
               boxShadow: isActive ? "0 2px 12px rgba(0,0,0,0.08)" : "none",
@@ -110,26 +46,18 @@ export default function Sidebar({ activeCategory, onCategoryChange }: SidebarPro
               />
             )}
 
-            <div
-              style={{
-                color: isActive ? "#111111" : "#A0A0A0",
-                transition: "color 0.25s ease",
-              }}
-              className="group-hover:text-[#111111]"
-            >
-              {cat.icon}
-            </div>
             <span
               style={{
-                fontSize: "9px",
-                fontWeight: 500,
+                fontSize: "10px",
+                fontWeight: 600,
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
                 color: isActive ? "#111111" : "#A0A0A0",
                 transition: "color 0.25s ease",
               }}
+              className="group-hover:text-[#111111]"
             >
-              {cat.label}
+              {brand}
             </span>
           </motion.button>
         );
