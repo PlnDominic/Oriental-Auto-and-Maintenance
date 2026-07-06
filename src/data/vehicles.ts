@@ -4,6 +4,12 @@ export interface PhotoCredit {
   page: string;
 }
 
+export interface VehicleView {
+  label: string;
+  image: string;
+  credit: PhotoCredit;
+}
+
 export interface Vehicle {
   id: string;
   brand: string;
@@ -15,8 +21,12 @@ export interface Vehicle {
   seats: number;
   body: string;
   image: string;
+  /** Label for the hero image in the view slider (defaults to "Front View"). */
+  imageLabel?: string;
   tag?: string;
   credit: PhotoCredit;
+  /** Extra angles (side, rear, interior, …). The hero view is derived from `image`. */
+  views?: VehicleView[];
 }
 
 export const brands = [
@@ -40,7 +50,7 @@ export const vehicles: Vehicle[] = [
     fuel: "Hybrid",
     seats: 5,
     body: "Sedan",
-    image: "/cars/geely-hybrid.jpg",
+    image: "/cars/geely-hybrid.png",
     tag: "Hybrid",
     credit: {
       artist: "User3204",
@@ -58,7 +68,7 @@ export const vehicles: Vehicle[] = [
     fuel: "Petrol",
     seats: 5,
     body: "SUV",
-    image: "/cars/geely-2025.jpg",
+    image: "/cars/geely-2025.png",
     tag: "New",
     credit: {
       artist: "Milhouse35",
@@ -76,7 +86,7 @@ export const vehicles: Vehicle[] = [
     fuel: "Petrol",
     seats: 5,
     body: "Off-Road SUV",
-    image: "/cars/jetour-t2.jpg",
+    image: "/cars/jetour-t2.png",
     tag: "Off-Road",
     credit: {
       artist: "JustAnotherCarDesigner",
@@ -94,7 +104,7 @@ export const vehicles: Vehicle[] = [
     fuel: "Petrol",
     seats: 7,
     body: "SUV",
-    image: "/cars/jetour-x70plus.jpg",
+    image: "/cars/jetour-x70plus.png",
     tag: "7 Seats",
     credit: {
       artist: "Anonymousfox36",
@@ -112,7 +122,7 @@ export const vehicles: Vehicle[] = [
     fuel: "Petrol",
     seats: 5,
     body: "Crossover",
-    image: "/cars/jetour-dashing.jpg",
+    image: "/cars/jetour-dashing.png",
     credit: {
       artist: "JustAnotherCarDesigner",
       license: "CC0",
@@ -129,7 +139,7 @@ export const vehicles: Vehicle[] = [
     fuel: "Petrol / Hybrid",
     seats: 5,
     body: "SUV",
-    image: "/cars/rav4.jpg",
+    image: "/cars/rav4.png",
     tag: "Popular",
     credit: {
       artist: "Alexander Migl",
@@ -147,7 +157,7 @@ export const vehicles: Vehicle[] = [
     fuel: "Petrol",
     seats: 5,
     body: "SUV",
-    image: "/cars/honda-crv.jpg",
+    image: "/cars/honda-crv.png",
     tag: "Popular",
     credit: {
       artist: "MercurySable99",
@@ -165,7 +175,7 @@ export const vehicles: Vehicle[] = [
     fuel: "Petrol",
     seats: 5,
     body: "Crossover",
-    image: "/cars/honda-hrv.jpg",
+    image: "/cars/honda-hrv.png",
     credit: {
       artist: "Ozaneee",
       license: "CC BY-SA 4.0",
@@ -182,7 +192,7 @@ export const vehicles: Vehicle[] = [
     fuel: "Petrol",
     seats: 5,
     body: "SUV",
-    image: "/cars/changan-cs75plus.jpg",
+    image: "/cars/changan-cs75plus.png",
     credit: {
       artist: "JustAnotherCarDesigner",
       license: "CC BY-SA 4.0",
@@ -199,7 +209,7 @@ export const vehicles: Vehicle[] = [
     fuel: "Petrol",
     seats: 5,
     body: "SUV",
-    image: "/cars/changan-unik.jpg",
+    image: "/cars/changan-unik.png",
     credit: {
       artist: "Jengtingchen",
       license: "CC BY-SA 4.0",
@@ -216,7 +226,7 @@ export const vehicles: Vehicle[] = [
     fuel: "Petrol",
     seats: 7,
     body: "Full-Size SUV",
-    image: "/cars/gmc-yukon.jpg",
+    image: "/cars/gmc-yukon.png",
     tag: "Premium",
     credit: {
       artist: "Mr.choppers",

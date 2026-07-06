@@ -18,11 +18,8 @@ export default function ShowroomPage() {
       ? vehicles
       : vehicles.filter((v) => v.brand === activeBrand);
 
-  const currentIndex = Math.max(
-    0,
-    filteredVehicles.findIndex((v) => v.id === activeVehicle)
-  );
-  const currentVehicle = filteredVehicles[currentIndex] ?? filteredVehicles[0];
+  const currentVehicle =
+    filteredVehicles.find((v) => v.id === activeVehicle) ?? filteredVehicles[0];
 
   const handleBrandChange = (brand: string) => {
     setActiveBrand(brand);
@@ -31,13 +28,6 @@ export default function ShowroomPage() {
       setActiveVehicle(pool[0].id);
     }
   };
-
-  const showPrev = () =>
-    setActiveVehicle(
-      filteredVehicles[(currentIndex - 1 + filteredVehicles.length) % filteredVehicles.length].id
-    );
-  const showNext = () =>
-    setActiveVehicle(filteredVehicles[(currentIndex + 1) % filteredVehicles.length].id);
 
   return (
     <div
@@ -85,13 +75,7 @@ export default function ShowroomPage() {
           </AnimatePresence>
 
           {/* Vehicle display */}
-          <VehicleDisplay
-            vehicle={currentVehicle}
-            index={currentIndex}
-            total={filteredVehicles.length}
-            onPrev={showPrev}
-            onNext={showNext}
-          />
+          <VehicleDisplay vehicle={currentVehicle} />
         </div>
 
         {/* Vehicle selector panel */}

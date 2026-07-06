@@ -2,17 +2,28 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { Vehicle } from "@/data/vehicles";
 
 interface VehicleDisplayProps {
   vehicle: Vehicle;
-  index: number;
-  total: number;
-  onPrev: () => void;
-  onNext: () => void;
 }
 
-export default function VehicleDisplay({ vehicle, index, total, onPrev, onNext }: VehicleDisplayProps) {
+export default function VehicleDisplay({ vehicle }: VehicleDisplayProps) {
+  const [currentView, setCurrentView] = useState(0);
+
+  // start from the front view whenever the vehicle changes
+  useEffect(() => {
+    setCurrentView(0);
+  }, [vehicle.id]);
+
+  const views = [
+    { label: vehicle.imageLabel ?? "Front View", image: vehicle.image, credit: vehicle.credit },
+    ...(vehicle.views ?? []),
+  ];
+  const view = views[Math.min(currentView, views.length - 1)];
+  const total = views.length;
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 30 }}
@@ -25,7 +36,7 @@ export default function VehicleDisplay({ vehicle, index, total, onPrev, onNext }
       <div className="relative w-full flex items-center justify-center" style={{ height: "420px" }}>
         <AnimatePresence mode="wait">
           <motion.div
-            key={vehicle.id}
+            key={`${vehicle.id}-${view.image}`}
             initial={{ opacity: 0, scale: 0.97 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.02 }}
@@ -34,8 +45,8 @@ export default function VehicleDisplay({ vehicle, index, total, onPrev, onNext }
             style={{ padding: "0 24px" }}
           >
             <Image
-              src={vehicle.image}
-              alt={`${vehicle.name} ${vehicle.year}`}
+              src={view.image}
+              alt={`${vehicle.name} ${vehicle.year} — ${view.label}`}
               fill
               sizes="(max-width: 1200px) 60vw, 800px"
               priority
@@ -47,7 +58,7 @@ export default function VehicleDisplay({ vehicle, index, total, onPrev, onNext }
 
       {/* Photo credit */}
       <a
-        href={vehicle.credit.page}
+        href={view.credit.page}
         target="_blank"
         rel="noopener noreferrer"
         style={{
@@ -58,7 +69,7 @@ export default function VehicleDisplay({ vehicle, index, total, onPrev, onNext }
           letterSpacing: "0.03em",
         }}
       >
-        Photo: {vehicle.credit.artist} · {vehicle.credit.license} · Wikimedia Commons
+        Photo: {view.credit.artist} · {view.credit.license} · Wikimedia Commons
       </a>
 
       {/* Slider controls */}
@@ -71,19 +82,19 @@ export default function VehicleDisplay({ vehicle, index, total, onPrev, onNext }
           >
             <motion.div
               className="absolute left-0 top-0 h-full bg-black"
-              animate={{ width: `${((index + 1) / total) * 100}%` }}
+              animate={{ width: `${((currentView + 1) / total) * 100}%` }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             />
           </div>
           <span style={{ fontSize: "11px", color: "#A0A0A0", fontWeight: 500, whiteSpace: "nowrap" }}>
-            {index + 1} / {total}
+            {currentView + 1} / {total}
           </span>
         </div>
 
         {/* Arrows */}
         <div className="flex items-center gap-2">
           <button
-            onClick={onPrev}
+            onClick={() => setCurrentView((v) => (v - 1 + total) % total)}
             className="flex items-center justify-center transition-all duration-200 hover:bg-gray-100"
             style={{
               width: "32px",
@@ -98,7 +109,7 @@ export default function VehicleDisplay({ vehicle, index, total, onPrev, onNext }
             </svg>
           </button>
           <button
-            onClick={onNext}
+            onClick={() => setCurrentView((v) => (v + 1) % total)}
             className="flex items-center justify-center transition-all duration-200 hover:bg-gray-100"
             style={{
               width: "32px",
@@ -114,17 +125,17 @@ export default function VehicleDisplay({ vehicle, index, total, onPrev, onNext }
           </button>
         </div>
 
-        {/* Body type label */}
+        {/* View label */}
         <AnimatePresence mode="wait">
           <motion.span
-            key={vehicle.id}
+            key={`${vehicle.id}-${currentView}`}
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
             transition={{ duration: 0.2 }}
             style={{ fontSize: "11px", color: "#A0A0A0", letterSpacing: "0.08em", textTransform: "uppercase" }}
           >
-            {vehicle.body}
+            {view.label}
           </motion.span>
         </AnimatePresence>
       </div>
