@@ -3,17 +3,10 @@
 import { motion } from "framer-motion";
 
 interface HeaderProps {
-  price: number;
+  vehicleCount: number;
 }
 
-export default function Header({ price }: HeaderProps) {
-  const formattedPrice = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(price);
-
+export default function Header({ vehicleCount }: HeaderProps) {
   return (
     <motion.header
       initial={{ opacity: 0, y: -20 }}
@@ -46,7 +39,7 @@ export default function Header({ price }: HeaderProps) {
 
       {/* Center Navigation */}
       <nav className="flex items-center" style={{ gap: "60px" }}>
-        {["My Vehicle", "Brochure", "Dealers", "Contact"].map((item, i) => (
+        {["Our Vehicles", "Services", "About", "Contact"].map((item, i) => (
           <a
             key={item}
             href="#"
@@ -68,19 +61,19 @@ export default function Header({ price }: HeaderProps) {
         ))}
       </nav>
 
-      {/* Price */}
+      {/* Fleet availability */}
       <div className="flex flex-col items-end">
         <span style={{ fontSize: "11px", color: "#A0A0A0", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 500 }}>
-          Current Configuration
+          Available Now
         </span>
         <motion.span
-          key={price}
+          key={vehicleCount}
           initial={{ opacity: 0, y: 4 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
           style={{ fontSize: "22px", fontWeight: 600, color: "#111111", letterSpacing: "-0.02em" }}
         >
-          {formattedPrice}
+          {vehicleCount} Vehicles
         </motion.span>
       </div>
     </motion.header>

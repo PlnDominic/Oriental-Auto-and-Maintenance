@@ -3,15 +3,15 @@
 import { motion, AnimatePresence } from "framer-motion";
 
 const actionLinks = [
-  { label: "Save Configuration", href: "#" },
-  { label: "Plan Test Drive", href: "#" },
-  { label: "Request Invoice", href: "#" },
+  { label: "Book Test Drive", href: "#" },
+  { label: "Request a Quote", href: "#" },
+  { label: "Contact Sales", href: "#" },
 ];
 
 interface VehicleInfoProps {
   vehicleName: string;
   variant: string;
-  year: number;
+  year: string;
 }
 
 export default function VehicleInfo({ vehicleName, variant, year }: VehicleInfoProps) {
@@ -37,7 +37,7 @@ export default function VehicleInfo({ vehicleName, variant, year }: VehicleInfoP
           marginBottom: "16px",
         }}
       >
-        Your Configuration
+        In Our Showroom
       </motion.span>
 
       {/* Vehicle Name */}

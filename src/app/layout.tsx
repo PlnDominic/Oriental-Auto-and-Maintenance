@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Oriental Auto | Premium Configurator",
-  description: "Configure your perfect vehicle with Oriental Auto & Maintenance.",
+  title: "Oriental Auto | Our Vehicles",
+  description: "Browse the vehicles available at Oriental Auto & Maintenance — Geely, Jetour, Toyota, Honda, Changan and GMC.",
 };
 
 export default function RootLayout({
