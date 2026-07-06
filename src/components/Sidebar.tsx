@@ -14,8 +14,7 @@ export default function Sidebar({ activeBrand, onBrandChange }: SidebarProps) {
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-      className="flex flex-col items-center justify-center gap-3 shrink-0"
-      style={{ width: "100px" }}
+      className="flex flex-row md:flex-col items-center justify-start md:justify-center gap-2 md:gap-3 shrink-0 w-full md:w-[100px] overflow-x-auto md:overflow-visible pb-2 md:pb-0"
     >
       {brands.map((brand, i) => {
         const isActive = activeBrand === brand;
@@ -26,7 +25,7 @@ export default function Sidebar({ activeBrand, onBrandChange }: SidebarProps) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1], delay: 0.15 + i * 0.05 }}
             onClick={() => onBrandChange(brand)}
-            className="relative flex flex-col items-center justify-center cursor-pointer group"
+            className="relative flex flex-col items-center justify-center cursor-pointer group shrink-0"
             style={{
               width: "84px",
               height: "44px",

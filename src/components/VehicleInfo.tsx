@@ -20,8 +20,7 @@ export default function VehicleInfo({ vehicleName, variant, year }: VehicleInfoP
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-      className="flex flex-col justify-center"
-      style={{ width: "35%", minWidth: "320px", paddingRight: "48px" }}
+      className="flex flex-col justify-center w-full md:w-[35%] md:min-w-[320px] md:pr-12 pt-4 md:pt-0"
     >
       {/* Label */}
       <motion.span

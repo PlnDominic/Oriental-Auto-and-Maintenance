@@ -12,7 +12,7 @@ export default function Header({ vehicleCount }: HeaderProps) {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[60px]"
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-8 lg:px-[60px]"
       style={{
         height: "80px",
         background: "#FFFFFF",
@@ -38,7 +38,7 @@ export default function Header({ vehicleCount }: HeaderProps) {
       </div>
 
       {/* Center Navigation */}
-      <nav className="flex items-center" style={{ gap: "60px" }}>
+      <nav className="hidden md:flex items-center gap-10 lg:gap-[60px]">
         {["Our Vehicles", "Services", "About", "Contact"].map((item, i) => (
           <a
             key={item}
