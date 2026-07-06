@@ -21,9 +21,11 @@ export interface Vehicle {
   seats: number;
   body: string;
   image: string;
+  /** Label for the hero image in the view slider (defaults to "Front View"). */
+  imageLabel?: string;
   tag?: string;
   credit: PhotoCredit;
-  /** Extra angles (side, rear, interior, …). The front view is derived from `image`. */
+  /** Extra angles (side, rear, interior, …). The hero view is derived from `image`. */
   views?: VehicleView[];
 }
 

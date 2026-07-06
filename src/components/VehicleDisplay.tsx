@@ -18,7 +18,7 @@ export default function VehicleDisplay({ vehicle }: VehicleDisplayProps) {
   }, [vehicle.id]);
 
   const views = [
-    { label: "Front View", image: vehicle.image, credit: vehicle.credit },
+    { label: vehicle.imageLabel ?? "Front View", image: vehicle.image, credit: vehicle.credit },
     ...(vehicle.views ?? []),
   ];
   const view = views[Math.min(currentView, views.length - 1)];
