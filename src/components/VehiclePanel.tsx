@@ -65,13 +65,13 @@ export default function VehiclePanel({ vehicles, activeVehicle, onVehicleChange 
               }}
             >
               {/* Thumbnail */}
-              <div className="relative w-full" style={{ height: "110px", background: "#EDEDED" }}>
+              <div className="relative w-full" style={{ height: "110px", background: "#FFFFFF" }}>
                 <Image
                   src={vehicle.image}
                   alt={vehicle.name}
                   fill
                   sizes="220px"
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: "contain", padding: "8px" }}
                 />
                 {/* Tag */}
                 {vehicle.tag && (
