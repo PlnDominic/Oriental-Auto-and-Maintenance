@@ -16,11 +16,10 @@ export default function VehiclePanel({ vehicles, activeVehicle, onVehicleChange 
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-      className="w-full shrink-0"
+      className="w-full shrink-0 p-4 md:px-10 md:py-8"
       style={{
         background: "#F7F7F7",
         borderTop: "1px solid #E5E5E5",
-        padding: "32px 40px 32px 40px",
       }}
     >
       {/* Section header */}

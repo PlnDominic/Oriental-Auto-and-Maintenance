@@ -31,36 +31,32 @@ export default function ShowroomPage() {
 
   return (
     <div
-      className="flex flex-col"
-      style={{
-        height: "100vh",
-        background: "#FFFFFF",
-        overflow: "hidden",
-      }}
+      className="flex flex-col min-h-screen md:h-screen md:overflow-hidden"
+      style={{ background: "#FFFFFF" }}
     >
       <Header vehicleCount={vehicles.length} />
 
       {/* Main area — fills remaining height below header */}
       <main
-        className="flex flex-col flex-1 overflow-hidden"
+        className="flex flex-col flex-1 md:overflow-hidden"
         style={{ marginTop: "80px" }}
       >
         {/* Hero section */}
         <div
-          className="flex flex-1 items-center overflow-hidden"
-          style={{ padding: "0 40px 0 24px", minHeight: 0 }}
+          className="flex flex-col md:flex-row flex-1 md:items-center md:overflow-hidden px-4 pt-4 md:pt-0 md:pl-6 md:pr-10"
+          style={{ minHeight: 0 }}
         >
           {/* Brand filter */}
           <Sidebar activeBrand={activeBrand} onBrandChange={handleBrandChange} />
 
           {/* Vertical divider */}
           <div
+            className="hidden md:block shrink-0"
             style={{
               width: "1px",
               height: "60%",
               background: "#F0F0F0",
               margin: "0 32px",
-              flexShrink: 0,
             }}
           />
 

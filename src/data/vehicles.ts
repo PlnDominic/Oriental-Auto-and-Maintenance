@@ -57,6 +57,23 @@ export const vehicles: Vehicle[] = [
       license: "CC BY-SA 4.0",
       page: "https://commons.wikimedia.org/wiki/File:2022_Geely_Emgrand_L_Hi-P_(front).jpg",
     },
+    views: [
+      {
+        label: "Side Profile",
+        image: "/cars/geely-hybrid-side.png",
+        credit: { artist: "Zotyefan", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Geely_Emgrand_L_Hi-P_IMG004.jpg" },
+      },
+      {
+        label: "Rear View",
+        image: "/cars/geely-hybrid-rear.png",
+        credit: { artist: "User3204", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:2022_Geely_Emgrand_L_Hi-P_(rear).jpg" },
+      },
+      {
+        label: "Interior",
+        image: "/cars/geely-hybrid-interior.jpg",
+        credit: { artist: "JustAnotherCarDesigner", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Geely_Emgrand_L_Hi-P_005.jpg" },
+      },
+    ],
   },
   {
     id: "geely-2025",
@@ -75,6 +92,18 @@ export const vehicles: Vehicle[] = [
       license: "CC BY-SA 4.0",
       page: "https://commons.wikimedia.org/wiki/File:Geely_Monjaro.jpg",
     },
+    views: [
+      {
+        label: "Side Profile",
+        image: "/cars/geely-2025-side.png",
+        credit: { artist: "Anonymousfox36", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Geely_Xingyue_L_IMG005.jpg" },
+      },
+      {
+        label: "Rear View",
+        image: "/cars/geely-2025-rear.png",
+        credit: { artist: "Zotyefan", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Geely_Xingyue_L_IMG009.jpg" },
+      },
+    ],
   },
   {
     id: "jetour-t2",
@@ -93,6 +122,23 @@ export const vehicles: Vehicle[] = [
       license: "CC0",
       page: "https://commons.wikimedia.org/wiki/File:Jetour_Shanhai_T2_001.jpg",
     },
+    views: [
+      {
+        label: "Side Profile",
+        image: "/cars/jetour-t2-side.png",
+        credit: { artist: "JustAnotherCarDesigner", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Jetour_Shanhai_T2_002.jpg" },
+      },
+      {
+        label: "Rear View",
+        image: "/cars/jetour-t2-rear.png",
+        credit: { artist: "JustAnotherCarDesigner", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Jetour_Shanhai_T2_003.jpg" },
+      },
+      {
+        label: "Interior",
+        image: "/cars/jetour-t2-interior.jpg",
+        credit: { artist: "Milhouse35", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Jetour_T2_interior.jpg" },
+      },
+    ],
   },
   {
     id: "jetour-x70plus",
@@ -105,12 +151,30 @@ export const vehicles: Vehicle[] = [
     seats: 7,
     body: "SUV",
     image: "/cars/jetour-x70plus.png",
+    imageLabel: "Side Profile",
     tag: "7 Seats",
     credit: {
       artist: "Anonymousfox36",
       license: "CC BY-SA 4.0",
       page: "https://commons.wikimedia.org/wiki/File:Jetour_X70_Plus_IMG003.jpg",
     },
+    views: [
+      {
+        label: "Front View",
+        image: "/cars/jetour-x70plus-front.png",
+        credit: { artist: "Anonymousfox36", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Jetour_X70_Plus_IMG001.jpg" },
+      },
+      {
+        label: "Rear View",
+        image: "/cars/jetour-x70plus-rear.png",
+        credit: { artist: "Anonymousfox36", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Jetour_X70_Plus_IMG002.jpg" },
+      },
+      {
+        label: "Interior",
+        image: "/cars/jetour-x70plus-interior.jpg",
+        credit: { artist: "Ethan Llamas", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Jetour_X70_Lightning_i-DM_interior.jpg" },
+      },
+    ],
   },
   {
     id: "jetour-dashing",
@@ -128,6 +192,18 @@ export const vehicles: Vehicle[] = [
       license: "CC0",
       page: "https://commons.wikimedia.org/wiki/File:Jetour_Dashing_facelift_001.jpg",
     },
+    views: [
+      {
+        label: "Rear View",
+        image: "/cars/jetour-dashing-rear.png",
+        credit: { artist: "JustAnotherCarDesigner", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Jetour_Dashing_facelift_002.jpg" },
+      },
+      {
+        label: "Interior",
+        image: "/cars/jetour-dashing-interior.jpg",
+        credit: { artist: "automachi", license: "CC BY 3.0", page: "https://commons.wikimedia.org/wiki/File:2025_Jetour_Dashing_interior_(Malaysia)_01.png" },
+      },
+    ],
   },
   {
     id: "rav4",
@@ -146,6 +222,23 @@ export const vehicles: Vehicle[] = [
       license: "CC BY-SA 4.0",
       page: "https://commons.wikimedia.org/wiki/File:2019_Toyota_RAV4_Hybrid_01.jpg",
     },
+    views: [
+      {
+        label: "Rear View",
+        image: "/cars/rav4-rear.png",
+        credit: { artist: "Alexander Migl", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:2019_Toyota_RAV4_Hybrid_02.jpg" },
+      },
+      {
+        label: "Interior",
+        image: "/cars/rav4-interior.jpg",
+        credit: { artist: "Alistair Fernandez", license: "CC BY-SA 3.0", page: "https://commons.wikimedia.org/wiki/File:Toyota_RAV4_2019_(XA50)_CUV_Interior.jpg" },
+      },
+      {
+        label: "Engine Bay",
+        image: "/cars/rav4-engine.jpg",
+        credit: { artist: "Baron Maddock", license: "CC BY 4.0", page: "https://commons.wikimedia.org/wiki/File:2021_Toyota_RAV4_engine_compartment.jpg" },
+      },
+    ],
   },
   {
     id: "honda-crv",
@@ -164,6 +257,18 @@ export const vehicles: Vehicle[] = [
       license: "CC BY-SA 4.0",
       page: "https://commons.wikimedia.org/wiki/File:2023_Honda_CR-V_EX-L_AWD,_front_right,_11-13-2022.jpg",
     },
+    views: [
+      {
+        label: "Rear View",
+        image: "/cars/honda-crv-rear.png",
+        credit: { artist: "MercurySable99", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:2023_Honda_CR-V_EX-L_AWD,_rear_right,_11-13-2022.jpg" },
+      },
+      {
+        label: "Interior",
+        image: "/cars/honda-crv-interior.jpg",
+        credit: { artist: "Dinkun Chen", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:HONDA_CR-V_SIXTH_GENERATION_CHINA_VERSION_INTERIOR.jpg" },
+      },
+    ],
   },
   {
     id: "honda-hrv",
@@ -181,6 +286,18 @@ export const vehicles: Vehicle[] = [
       license: "CC BY-SA 4.0",
       page: "https://commons.wikimedia.org/wiki/File:2022_Honda_HR-V_RS_Turbo_Indonesia.jpg",
     },
+    views: [
+      {
+        label: "Side Profile",
+        image: "/cars/honda-hrv-side.png",
+        credit: { artist: "Alexander Migl", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Honda_HR-V_Hybrid_1X7A0427.jpg" },
+      },
+      {
+        label: "Interior",
+        image: "/cars/honda-hrv-interior.jpg",
+        credit: { artist: "オーバードライブ83", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:2022_Honda_HR-V_1.5_Turbo_RS_RV3_interior_(20220405).jpg" },
+      },
+    ],
   },
   {
     id: "changan-cs75plus",
@@ -198,6 +315,23 @@ export const vehicles: Vehicle[] = [
       license: "CC BY-SA 4.0",
       page: "https://commons.wikimedia.org/wiki/File:Changan_CS75_Plus_II_004.jpg",
     },
+    views: [
+      {
+        label: "Side Profile",
+        image: "/cars/changan-cs75plus-side.png",
+        credit: { artist: "JustAnotherCarDesigner", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Changan_CS75_Plus_II_001.jpg" },
+      },
+      {
+        label: "Rear View",
+        image: "/cars/changan-cs75plus-rear.png",
+        credit: { artist: "JustAnotherCarDesigner", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Changan_CS75_Plus_II_002.jpg" },
+      },
+      {
+        label: "Interior",
+        image: "/cars/changan-cs75plus-interior.jpg",
+        credit: { artist: "Throwawayacc222", license: "CC0", page: "https://commons.wikimedia.org/wiki/File:Changan_CS75_Plus_interior.jpg" },
+      },
+    ],
   },
   {
     id: "changan-unik",
@@ -215,6 +349,13 @@ export const vehicles: Vehicle[] = [
       license: "CC BY-SA 4.0",
       page: "https://commons.wikimedia.org/wiki/File:Changan_UNI-K_001.jpg",
     },
+    views: [
+      {
+        label: "Rear View",
+        image: "/cars/changan-unik-rear.png",
+        credit: { artist: "JustAnotherCarDesigner", license: "CC BY-SA 4.0", page: "https://commons.wikimedia.org/wiki/File:Changan_UNI-K_004.jpg" },
+      },
+    ],
   },
   {
     id: "gmc-yukon",
@@ -233,5 +374,17 @@ export const vehicles: Vehicle[] = [
       license: "CC BY-SA 3.0",
       page: "https://commons.wikimedia.org/wiki/File:2021_GMC_Yukon_Denali_in_Hunter_Metallic,_front_left.jpg",
     },
+    views: [
+      {
+        label: "Rear View",
+        image: "/cars/gmc-yukon-rear.png",
+        credit: { artist: "Mr.choppers", license: "CC BY-SA 3.0", page: "https://commons.wikimedia.org/wiki/File:2021_GMC_Yukon_Denali_in_Hunter_Metallic,_rear_left.jpg" },
+      },
+      {
+        label: "Interior",
+        image: "/cars/gmc-yukon-interior.jpg",
+        credit: { artist: "Mr.choppers", license: "CC BY-SA 3.0", page: "https://commons.wikimedia.org/wiki/File:2021_GMC_Yukon_Denali,_dashboard.jpg" },
+      },
+    ],
   },
 ];

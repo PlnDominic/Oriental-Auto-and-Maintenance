@@ -29,11 +29,10 @@ export default function VehicleDisplay({ vehicle }: VehicleDisplayProps) {
       initial={{ opacity: 0, x: 30 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-      className="flex flex-col justify-center items-center"
-      style={{ width: "55%", position: "relative" }}
+      className="flex flex-col justify-center items-center w-full md:w-[55%] relative pb-4 md:pb-0"
     >
       {/* Vehicle image area */}
-      <div className="relative w-full flex items-center justify-center" style={{ height: "420px" }}>
+      <div className="relative w-full flex items-center justify-center h-[240px] sm:h-[300px] md:h-[420px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={`${vehicle.id}-${view.image}`}

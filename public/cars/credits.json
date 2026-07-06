@@ -75,5 +75,187 @@
     "license": "CC BY-SA 3.0",
     "artist": "Mr.choppers",
     "page": "https://commons.wikimedia.org/wiki/File:2021_GMC_Yukon_Denali_in_Hunter_Metallic,_front_left.jpg"
+  },
+  {
+    "file": "geely-hybrid-side.png",
+    "source": "File:Geely Emgrand L Hi-P IMG004.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Zotyefan",
+    "page": "https://commons.wikimedia.org/wiki/File:Geely_Emgrand_L_Hi-P_IMG004.jpg"
+  },
+  {
+    "file": "geely-hybrid-rear.png",
+    "source": "File:2022 Geely Emgrand L Hi-P (rear).jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "User3204",
+    "page": "https://commons.wikimedia.org/wiki/File:2022_Geely_Emgrand_L_Hi-P_(rear).jpg"
+  },
+  {
+    "file": "geely-hybrid-interior.jpg",
+    "source": "File:Geely Emgrand L Hi-P 005.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "JustAnotherCarDesigner",
+    "page": "https://commons.wikimedia.org/wiki/File:Geely_Emgrand_L_Hi-P_005.jpg"
+  },
+  {
+    "file": "geely-2025-side.png",
+    "source": "File:Geely Xingyue L IMG005.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Anonymousfox36",
+    "page": "https://commons.wikimedia.org/wiki/File:Geely_Xingyue_L_IMG005.jpg"
+  },
+  {
+    "file": "geely-2025-rear.png",
+    "source": "File:Geely Xingyue L IMG009.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Zotyefan",
+    "page": "https://commons.wikimedia.org/wiki/File:Geely_Xingyue_L_IMG009.jpg"
+  },
+  {
+    "file": "jetour-t2-side.png",
+    "source": "File:Jetour Shanhai T2 002.jpg",
+    "license": "CC0",
+    "artist": "JustAnotherCarDesigner",
+    "page": "https://commons.wikimedia.org/wiki/File:Jetour_Shanhai_T2_002.jpg"
+  },
+  {
+    "file": "jetour-t2-rear.png",
+    "source": "File:Jetour Shanhai T2 003.jpg",
+    "license": "CC0",
+    "artist": "JustAnotherCarDesigner",
+    "page": "https://commons.wikimedia.org/wiki/File:Jetour_Shanhai_T2_003.jpg"
+  },
+  {
+    "file": "jetour-t2-interior.jpg",
+    "source": "File:Jetour T2 interior.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Milhouse35",
+    "page": "https://commons.wikimedia.org/wiki/File:Jetour_T2_interior.jpg"
+  },
+  {
+    "file": "jetour-x70plus-front.png",
+    "source": "File:Jetour X70 Plus IMG001.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Anonymousfox36",
+    "page": "https://commons.wikimedia.org/wiki/File:Jetour_X70_Plus_IMG001.jpg"
+  },
+  {
+    "file": "jetour-x70plus-rear.png",
+    "source": "File:Jetour X70 Plus IMG002.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Anonymousfox36",
+    "page": "https://commons.wikimedia.org/wiki/File:Jetour_X70_Plus_IMG002.jpg"
+  },
+  {
+    "file": "jetour-x70plus-interior.jpg",
+    "source": "File:Jetour X70 Lightning i-DM interior.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Ethan Llamas",
+    "page": "https://commons.wikimedia.org/wiki/File:Jetour_X70_Lightning_i-DM_interior.jpg"
+  },
+  {
+    "file": "jetour-dashing-rear.png",
+    "source": "File:Jetour Dashing facelift 002.jpg",
+    "license": "CC0",
+    "artist": "JustAnotherCarDesigner",
+    "page": "https://commons.wikimedia.org/wiki/File:Jetour_Dashing_facelift_002.jpg"
+  },
+  {
+    "file": "jetour-dashing-interior.jpg",
+    "source": "File:2025 Jetour Dashing interior (Malaysia) 01.png",
+    "license": "CC BY 3.0",
+    "artist": "automachi",
+    "page": "https://commons.wikimedia.org/wiki/File:2025_Jetour_Dashing_interior_(Malaysia)_01.png"
+  },
+  {
+    "file": "rav4-rear.png",
+    "source": "File:2019 Toyota RAV4 Hybrid 02.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Alexander Migl",
+    "page": "https://commons.wikimedia.org/wiki/File:2019_Toyota_RAV4_Hybrid_02.jpg"
+  },
+  {
+    "file": "rav4-interior.jpg",
+    "source": "File:Toyota RAV4 2019 (XA50) CUV Interior.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Alistair Fernandez",
+    "page": "https://commons.wikimedia.org/wiki/File:Toyota_RAV4_2019_(XA50)_CUV_Interior.jpg"
+  },
+  {
+    "file": "rav4-engine.jpg",
+    "source": "File:2021 Toyota RAV4 engine compartment.jpg",
+    "license": "CC BY 4.0",
+    "artist": "Baron Maddock",
+    "page": "https://commons.wikimedia.org/wiki/File:2021_Toyota_RAV4_engine_compartment.jpg"
+  },
+  {
+    "file": "honda-crv-rear.png",
+    "source": "File:2023 Honda CR-V EX-L AWD, rear right, 11-13-2022.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "MercurySable99",
+    "page": "https://commons.wikimedia.org/wiki/File:2023_Honda_CR-V_EX-L_AWD,_rear_right,_11-13-2022.jpg"
+  },
+  {
+    "file": "honda-crv-interior.jpg",
+    "source": "File:HONDA CR-V SIXTH GENERATION CHINA VERSION INTERIOR.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Dinkun Chen",
+    "page": "https://commons.wikimedia.org/wiki/File:HONDA_CR-V_SIXTH_GENERATION_CHINA_VERSION_INTERIOR.jpg"
+  },
+  {
+    "file": "honda-hrv-side.png",
+    "source": "File:Honda HR-V Hybrid 1X7A0427.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "Alexander Migl",
+    "page": "https://commons.wikimedia.org/wiki/File:Honda_HR-V_Hybrid_1X7A0427.jpg"
+  },
+  {
+    "file": "honda-hrv-interior.jpg",
+    "source": "File:2022 Honda HR-V 1.5 Turbo RS RV3 interior (20220405).jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "\u30aa\u30fc\u30d0\u30fc\u30c9\u30e9\u30a4\u30d683",
+    "page": "https://commons.wikimedia.org/wiki/File:2022_Honda_HR-V_1.5_Turbo_RS_RV3_interior_(20220405).jpg"
+  },
+  {
+    "file": "changan-cs75plus-side.png",
+    "source": "File:Changan CS75 Plus II 001.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "JustAnotherCarDesigner",
+    "page": "https://commons.wikimedia.org/wiki/File:Changan_CS75_Plus_II_001.jpg"
+  },
+  {
+    "file": "changan-cs75plus-rear.png",
+    "source": "File:Changan CS75 Plus II 002.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "JustAnotherCarDesigner",
+    "page": "https://commons.wikimedia.org/wiki/File:Changan_CS75_Plus_II_002.jpg"
+  },
+  {
+    "file": "changan-cs75plus-interior.jpg",
+    "source": "File:Changan CS75 Plus interior.jpg",
+    "license": "CC0",
+    "artist": "Throwawayacc222",
+    "page": "https://commons.wikimedia.org/wiki/File:Changan_CS75_Plus_interior.jpg"
+  },
+  {
+    "file": "changan-unik-rear.png",
+    "source": "File:Changan UNI-K 004.jpg",
+    "license": "CC BY-SA 4.0",
+    "artist": "JustAnotherCarDesigner",
+    "page": "https://commons.wikimedia.org/wiki/File:Changan_UNI-K_004.jpg"
+  },
+  {
+    "file": "gmc-yukon-rear.png",
+    "source": "File:2021 GMC Yukon Denali in Hunter Metallic, rear left.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Mr.choppers",
+    "page": "https://commons.wikimedia.org/wiki/File:2021_GMC_Yukon_Denali_in_Hunter_Metallic,_rear_left.jpg"
+  },
+  {
+    "file": "gmc-yukon-interior.jpg",
+    "source": "File:2021 GMC Yukon Denali, dashboard.jpg",
+    "license": "CC BY-SA 3.0",
+    "artist": "Mr.choppers",
+    "page": "https://commons.wikimedia.org/wiki/File:2021_GMC_Yukon_Denali,_dashboard.jpg"
   }
 ]
